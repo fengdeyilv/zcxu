@@ -1,0 +1,2860 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>华阴市帮扶政策平台</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary-color: #64748b;
+            --background-color: #f8fafc;
+            --card-background: #ffffff;
+            --text-primary: #1e293b;
+            --text-secondary: #475569;
+            --border-color: #e2e8f0;
+            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --danger-color: #ef4444;
+            --modal-overlay: rgba(0, 0, 0, 0.6);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        /* 标签样式 */
+        .policy-tag {
+            /* display: inline-block;
+            background-color: #3b82f6;
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: 1rem; */
+
+            background: #e6f2ff;
+            color: var(--primary-color);
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+            padding: 0.3rem 0.8rem;
+        }
+
+        .header {
+            background: var(--card-background);
+            border-bottom: 1px solid var(--border-color);
+            padding: 2rem 0;
+            box-shadow: var(--shadow);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            color: var(--text-secondary);
+            font-size: 1.125rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .search-section {
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .search-input {
+            width: 100%;
+            max-width: 500px;
+            padding: 0.75rem 1.5rem;
+            border: 1px solid var(--border-color);
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            transition: all 0.2s;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+        }
+        
+        .search-history {
+            background: var(--card-background);
+            border: 1px solid var(--border-color);
+            border-radius: 0.5rem;
+            padding: 0.5rem;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+        }
+        
+        .history-item {
+            background: var(--background-color);
+            color: var(--text-secondary);
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .history-item:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            align-items: center;
+        }
+
+        .nav-tab {
+            padding: 0.75rem 1.5rem;
+            background: var(--card-background);
+            border: 1px solid var(--border-color);
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.875rem;
+            font-weight: 500;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+        }
+
+        .nav-tab:hover {
+            background: var(--background-color);
+            transform: translateY(-2px);
+        }
+
+        .nav-tab.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+            box-shadow: 0 4px 6px rgba(37, 99, 235, 0.3);
+        }
+        
+        .category-select {
+            padding: 0.75rem 1.5rem 0.75rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 0.5rem;
+            background: var(--card-background) url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e") no-repeat right 0.5rem center/1.5em 1.5em;
+            font-size: 0.875rem;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+            color: var(--text-primary);
+            transition: all 0.2s ease;
+            min-width: 180px;
+            appearance: none;
+            cursor: pointer;
+        }
+        
+        .category-select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+        }
+        
+        .category-select:hover {
+            background-color: var(--background-color);
+            border-color: #c7d2fe;
+        }
+        
+        /* 下拉菜单选项样式 */
+        .category-select option {
+            padding: 0.5rem;
+            background-color: var(--card-background);
+            color: var(--text-primary);
+        }
+        
+        .category-select option:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .content-section {
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        .policy-grid {
+            display: grid;
+            /* 默认使用响应式布局，让浏览器根据容器宽度自动调整列数 */
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .policy-card {
+            background: var(--card-background);
+            border: 1px solid var(--border-color);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .policy-card:hover {
+            box-shadow: var(--shadow);
+            transform: translateY(-5px);
+            border-color: var(--primary-color);
+        }
+        
+        .policy-card:active {
+            transform: translateY(-2px);
+        }
+
+        .policy-category {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: var(--background-color);
+            color: var(--primary-color);
+            font-size: 0.75rem;
+            font-weight: 600;
+            border-radius: 9999px;
+            margin-bottom: 0.75rem;
+        }
+
+        .policy-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* 为政策卡片中的图标添加颜色 */
+        .policy-card .fa-seedling {
+            color: #22c55e;
+        }
+
+        .policy-card .fa-briefcase {
+            color: #3b82f6;
+        }
+
+        .policy-card .fa-money-bill-wave {
+            color: #10b981;
+        }
+
+        .policy-card .fa-tools {
+            color: #f59e0b;
+        }
+
+        .policy-card .fa-home {
+            color: #8b5cf6;
+        }
+
+        .policy-card .fa-tint {
+            color: #0ea5e9;
+        }
+
+        .policy-card .fa-graduation-cap {
+            color: #ec4899;
+        }
+
+        .policy-card .fa-shield-alt {
+            color: #ef4444;
+        }
+
+        .policy-card .fa-list {
+            color: #64748b;
+        }
+
+        .policy-card .fa-heartbeat {
+            color: #ef4444;
+        }
+        .policy-card .fa-wheelchair {
+            color: #8b5cf6; /* 紫色，适合残疾人相关 */
+        }
+
+        .policy-card .fa-hands-helping {
+            color: #ec4899; /* 粉色，适合社会捐助 */
+        }
+
+        .policy-card .fa-mountain {
+            color: #22c55e; /* 绿色，适合搬迁相关 */
+        }
+
+        .policy-card .fa-toilet {
+            color: #f59e0b; /* 橙色，适合户厕改造 */
+        }
+
+        .policy-card .fa-road {
+            color: #3b82f6; /* 蓝色，适合道路建设 */
+        }
+
+        .policy-card .fa-bolt {
+            color: #f59e0b; /* 橙色，适合电力相关 */
+        }
+
+        .policy-card .fa-heartbeat {
+            color: #ef4444;
+        }
+
+        .policy-description {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+            flex-grow: 1;
+        }
+
+        .policy-contact {
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .interactive-button {
+            align-self: flex-end;
+            padding: 0.6rem 1.2rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border-radius: 0.5rem;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 6px rgba(37, 99, 235, 0.3);
+        }
+
+        .interactive-button:hover {
+            background-color: var(--primary-dark);
+            box-shadow: 0 6px 10px rgba(37, 99, 235, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .interactive-button:active {
+            transform: translateY(0);
+        }
+
+        /* 专业模态框样式 */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--modal-overlay);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-container {
+            background: var(--card-background);
+            border-radius: 0.3rem;
+            width: 90%;
+            max-width: 900px;
+            max-height: 90vh;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+
+        .modal-overlay.show .modal-container {
+            transform: scale(1);
+        }
+
+        .modal-header {
+            padding: 0.1rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(135deg, #f0f4ff, #e6eeff);
+        }
+
+        .modal-title {
+            font-size: 1.0rem;
+            font-weight: 700;
+            margin: 0;
+            color: var(--primary-dark);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding-left: 2em; /* 标题前空两格 */
+        }
+
+        .modal-close {
+            background: transparent;
+            border: none; /* 移除边框 */
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: none; /* 移除过渡动画 */
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+        }
+
+        .modal-close:hover {
+            background: transparent;
+            transform: none; /* 移除悬停时的旋转动画 */
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+            max-height: calc(90vh - 120px);
+            overflow-y: auto;
+        }
+
+        .policy-details-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .detail-card {
+            background: #f8fafc;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+        }
+
+        .detail-card:hover {
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.08);
+            transform: translateY(-3px);
+            border-color: #c7d2fe;
+        }
+
+        .detail-card:active {
+            transform: translateY(0);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .detail-card h3 {
+            font-size: 1.0rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding-left: 0;
+        }
+
+        .detail-card h3 i {
+            font-size: 0.8rem;
+            color: var(--secondary-color);
+        }
+
+        .detail-card ul,
+        .detail-card ol {
+            padding-left: 1.25rem;
+            margin: 0;
+        }
+
+        .detail-card li {
+            margin-bottom: 0.1rem;
+            font-size:0.8rem;
+        }
+
+        .contact-section {
+            background: #f8fafc;
+            border-left: 3px solid var(--primary-color);
+            border-radius: 0 0.25rem 0.25rem 0;
+            padding: 1rem 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .contact-section h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: var(--primary-dark);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 0.75rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .contact-icon {
+            color: var(--primary-color);
+            font-size: 0.9rem;
+            min-width: 20px;
+            text-align: center;
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 6rem;
+            right: 2.20rem;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 2.90rem;
+            height: 2.90rem;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(48, 34, 238, 0.4);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 999;
+            font-size: 1.2rem;
+        }
+
+        .back-to-top.visible {
+            display: flex;
+        }
+
+        .back-to-top:hover {
+            background: var(--primary-dark);
+            transform: translateY(0px) scale(1.2);
+            box-shadow: 0 0px 5px rgba(58, 101, 211, 0.7);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .header h1 {
+                font-size: 1.5rem;
+            }
+            
+            .policy-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-tabs {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .nav-tab {
+                text-align: center;
+            }
+            
+            .modal-container {
+                width: 95%;
+                max-height: 95vh;
+            }
+            
+            .policy-details-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="current-datetime" style="position: absolute; top: 10px; left: 10px; font-size: 0.9rem; color: var(--text-secondary); z-index: 100;"></div>
+    <header class="header">
+        <div class="header-content">
+            <h1>华阴市防止返贫监测对象主要帮扶政策"工具箱"</h1>
+            <p>让政策走进千家万户，让帮扶温暖人心</p>
+        </div>
+    </header>
+    <div class="container">
+        <div class="search-section">
+            <input type="text" class="search-input" placeholder="搜索帮扶政策..." onkeyup="handleSearchInput(event)" id="searchInput">
+            <div class="search-history" id="searchHistory" style="display: none; margin-top: 5px;">
+                <div style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 5px;">搜索历史:</div>
+                <div id="historyItems" style="display: flex; flex-wrap: wrap; gap: 5px;"></div>
+            </div>
+            <div class="search-results-count" id="searchResultsCount" style="margin-top: 10px; font-size: 0.9rem; color: var(--text-secondary); display: none;"></div>
+        </div>
+
+        <nav class="nav-tabs">
+            <button class="nav-tab active" onclick="showSection('all')">全部政策</button>
+            <button class="nav-tab" onclick="showSection('income')">增收类</button>
+            <button class="nav-tab" onclick="showSection('security')">三保障类</button>
+            <button class="nav-tab" onclick="showSection('education')">教育帮扶</button>
+            <button class="nav-tab" onclick="showSection('comprehensive')">综合保障</button>
+            <button class="nav-tab" onclick="showSection('others')">其他类</button>
+            <div class="category-filter" id="categoryFilter" style="margin-left: auto; display: none;">
+                <select class="category-select" onchange="filterByCategory(this.value)">
+                    <option value="">所有分类</option>
+                    <option value="产业帮扶">产业帮扶</option>
+                    <option value="就业帮扶">就业帮扶</option>
+                    <option value="金融帮扶">金融帮扶</option>
+                    <option value="健康帮扶">健康帮扶</option>
+                    <option value="住房保障">住房保障</option>
+                    <option value="饮水安全">饮水安全</option>
+                    <option value="教育帮扶">教育帮扶</option>
+                    <option value="综合保障">综合保障</option>
+                    <option value="社会帮扶">社会帮扶</option>
+                    <option value="搬迁">搬迁</option>
+                    <option value="生产生活条件改善">生产生活条件改善</option>
+                    <option value="基础设施建设">基础设施建设</option>
+                </select>
+            </div>
+        </nav>
+
+        <div class="content-section active" id="all">
+            <div class="policy-grid">
+                <div class="policy-card" onclick="openModal('产业直补')">
+                    <span class="policy-category">产业帮扶</span>
+                    <h3 class="policy-title"><i class="fas fa-seedling"></i> 产业直补政策</h3>
+                    <p class="policy-description">发展传统种养业每户最高补助5000元，现代设施农业最高10000元。</p>
+                    <p class="policy-contact"><i class="fas fa-user"></i> 联系：张钰 4621128</p>
+                    <button class="interactive-button" onclick="openModal('产业直补'); event.stopPropagation();">
+                        <i class="fas fa-info-circle"></i> 查看详情
+                    </button>
+                </div>
+                <div class="policy-card" onclick="openModal('就业帮扶')">
+                    <span class="policy-category">就业帮扶</span>
+                    <h3 class="policy-title"><i class="fas fa-briefcase"></i> 就业技能培训</h3>
+                    <p class="policy-description">免费技能培训和创业培训，跨省务工补贴每人每年500元。</p>
+                    <p class="policy-contact"><i class="fas fa-user"></i> 联系：姚恬欣 4613072</p>
+                    <button class="interactive-button" onclick="openModal('就业帮扶'); event.stopPropagation();">
+                        <i class="fas fa-info-circle"></i> 查看详情
+                    </button>
+                </div>
+                <div class="policy-card" onclick="openModal('公益岗位')">
+                    <span class="policy-category">公益岗位</span>
+                    <h3 class="policy-title"><i class="fas fa-tools"></i> 公益岗位帮扶</h3>
+                    <p class="policy-description">提供护林员、保洁员等公益岗位，实现就近就业。</p>
+                    <p class="policy-contact"><i class="fas fa-user"></i> 联系：田凌于 4625620</p>
+                    <button class="interactive-button" onclick="openModal('公益岗位'); event.stopPropagation();">
+                        <i class="fas fa-info-circle"></i> 查看详情
+                    </button>
+                </div>
+                <div class="policy-card" onclick="openModal('跨省外出务工补贴')">
+                    <span class="policy-category">就业帮扶</span>
+                    <h3 class="policy-title"><i class="fas fa-briefcase"></i> 跨省外出务工补贴</h3>
+                    <p class="policy-description">跨省就业一次性交通补助每人每年补贴标准不超过500元。</p>
+                    <p class="policy-contact"><i class="fas fa-user"></i> 联系：王洁 4625350</p>
+                    <button class="interactive-button" onclick="openModal('跨省外出务工补贴'); event.stopPropagation();">
+                        <i class="fas fa-info-circle"></i> 查看详情
+                    </button>
+                </div>
+                 <div class="policy-card" onclick="openModal('小额信贷')">
+                    <span class="policy-category">金融帮扶</span>
+                    <h3 class="policy-title">💰 小额信贷贴息</h3>
+                    <p class="policy-description">为脱贫户提供小额信贷支持，用于发展产业和创业。</p>
+                    <p class="policy-contact">联系：潘欢 4625350</p>
+                    <button class="interactive-button" onclick="openModal('小额信贷'); event.stopPropagation();">
+                         <i class="fas fa-info-circle"></i>查看详情
+                    </button>
+                </div>
+                <div class="policy-card" onclick="openModal('大病保险')">
+                    <span class="policy-category">健康帮扶</span>
+                    <h3 class="policy-title"><i class="fas fa-heartbeat"></i> 大病保险政策</h3>
+                    <p class="policy-description">对特困人员、低保对象和返贫致贫人口的重大疾病医疗费用进行分段补偿。</p>
+                    <p class="policy-contact"><i class="fas fa-user"></i> 联系：张若飞 4628500</p>
+                    <button class="interactive-button" onclick="openModal('大病保险'); event.stopPropagation();">
+                        <i class="fas fa-info-circle"></i> 查看详情
+                    </button>
+                </div>
+                <div class="policy-card" onclick="openModal('危房改造')">
+                    <span class="policy-category">住房保障</span>
+                    <h3 class="policy-title"><i class="fas fa-home"></i> 危房改造政策</h3>
+                    <p class="policy-description">修缮加固每户补助1.5万元，新建每户不低于2.65万元。</p>
+                    <p class="policy-contact"><i class="fas fa-user"></i> 联系：李婧 4610519</p>
+                    <button class="interactive-button" onclick="openModal('危房改造'); event.stopPropagation();">
+                        <i class="fas fa-info-circle"></i> 查看详情
+                    </button>
+                </div>
+                <div class="policy-card" onclick="openModal('饮水安全')">
+                    <span class="policy-category">饮水安全</span>
+                    <h3 class="policy-title"><i class="fas fa-tint"></i> 饮水安全保障</h3>
+                    <p class="policy-description">解决农村饮水安全问题，确保群众喝上放心水。</p>
+                    <p class="policy-contact"><i class="fas fa-user"></i> 联系：王强 4612345</p>
+                    <button class="interactive-button" onclick="openModal('饮水安全'); event.stopPropagation();">
+                        <i class="fas fa-info-circle"></i> 查看详情
+                    </button>
+                </div>
+                <div class="policy-card" onclick="openModal('城乡基本医疗保险缴费补贴')">
+                    <span class="policy-category">健康帮扶</span>
+                    <h3 class="policy-title"><i class="fas fa-heartbeat"></i> 城乡基本医疗保险缴费补贴</h3>
+                    <p class="policy-description">对特困人员、低保对象等人群参保个人缴费实行分类资助。</p>
+                    <p class="policy-contact"><i class="fas fa-user"></i> 联系：张若飞 4628500</p>
+                    <button class="interactive-button" onclick="openModal('城乡基本医疗保险缴费补贴'); event.stopPropagation();">
+                        <i class="fas fa-info-circle"></i> 查看详情
+                    </button>
+                </div>
+                <div class="policy-card" onclick="openModal('医疗救助')">
+                    <span class="policy-category">健康帮扶</span>
+                    <h3 class="policy-title"><i class="fas fa-heartbeat"></i> 医疗救助</h3>
+                    <p class="policy-description">为不同类别符合条件的困难群体提供医疗费用救助，减轻其医疗负担。</p>
+                    <p class="policy-contact"><i class="fas fa-user"></i> 联系：张若飞 4628500</p>
+                    <button class="interactive-button" onclick="openModal('医疗救助'); event.stopPropagation();">
+                        <i class="fas fa-info-circle"></i> 查看详情
+                    </button>
+                </div>
+                <div class="policy-card" onclick="openModal('大病慢病先诊后付')">
+                    <span class="policy-category">健康帮扶</span>
+                    <h3 class="policy-title"><i class="fas fa-heartbeat"></i> 大病慢病先诊后付</h3>
+                    <p class="policy-description">通过大病专项救治、慢病签约服务和先诊疗后付费等措施，为相关群体提供健康帮扶。</p>
+                    <p class="policy-contact"><i class="fas fa-user"></i> 联系：张若飞 4628500</p>
+                    <button class="interactive-button" onclick="openModal('大病慢病先诊后付'); event.stopPropagation();">
+                        <i class="fas fa-info-circle"></i> 查看详情
+                    </button>
+                </div>
+                <div class="policy-card" onclick="openModal('义务教育保障')">
+                    <span class="policy-category">教育帮扶</span>
+                    <h3 class="policy-title"><i class="fas fa-graduation-cap"></i> 义务教育保障</h3>
+                    <p class="policy-description">为困难学生提供生活补助，确保义务教育阶段学生不因贫失学。</p>
+                    <p class="policy-contact"><i class="fas fa-user"></i> 联系：郭向前 4615903</p>
+                    <button class="interactive-button" onclick="openModal('义务教育保障'); event.stopPropagation();">
+                        <i class="fas fa-info-circle"></i> 查看详情
+                    </button>
+                </div>
+                <div class="policy-card" onclick="openModal('助学贷款')">
+                    <span class="policy-category">教育帮扶</span>
+                    <h3 class="policy-title"><i class="fas fa-graduation-cap"></i> 助学贷款</h3>
+                    <p class="policy-description">家庭经济困难大学生可申请办理国家生源地信用助学贷款。</p>
+                    <p class="policy-contact"><i class="fas fa-user"></i> 联系：郭向前 4615903</p>
+                    <button class="interactive-button" onclick="openModal('助学贷款'); event.stopPropagation();">
+                        <i class="fas fa-info-circle"></i> 查看详情
+                    </button>
+                </div>
+                <div class="policy-card" onclick="openModal('普通高中助学金')">
+                    <span class="policy-category">教育帮扶</span>
+                    <h3 class="policy-title"><i class="fas fa-graduation-cap"></i> 普通高中助学金</h3>
+                    <p class="policy-description">资助有正式注册学籍的普通高中家庭经济困难学生。</p>
+                    <p class="policy-contact"><i class="fas fa-user"></i> 联系：郭向前 4615903</p>
+                    <button class="interactive-button" onclick="openModal('普通高中助学金'); event.stopPropagation();">
+                        <i class="fas fa-info-circle"></i> 查看详情
+                    </button>
+                </div>
+                <div class="policy-card" onclick="openModal('雨露计划')">
+                    <span class="policy-category">教育帮扶</span>
+                    <h3 class="policy-title"><i class="fas fa-graduation-cap"></i> 雨露计划</h3>
+                    <p class="policy-description">为接受中等和高等职业教育的农村建档立卡脱贫家庭学生提供补助。</p>
+                    <p class="policy-contact"><i class="fas fa-user"></i> 联系：王洁 4625350</p>
+                    <button class="interactive-button" onclick="openModal('雨露计划'); event.stopPropagation();">
+                        <i class="fas fa-info-circle"></i> 查看详情
+                    </button>
+                </div>
+                <div class="policy-card" onclick="openModal('综合保障')">
+                    <span class="policy-category">综合保障</span>
+                    <h3 class="policy-title"><i class="fas fa-shield-alt"></i> 综合保障政策</h3>
+                    <p class="policy-description">最低生活保障、特困人员救助供养、临时救助等兜底保障。</p>
+                    <p class="policy-contact"><i class="fas fa-user"></i> 联系：民政办 4617890</p>
+                    <button class="interactive-button" onclick="openModal('综合保障'); event.stopPropagation();">
+                        <i class="fas fa-info-circle"></i> 查看详情
+                    </button>
+                </div>
+                <div class="policy-card" onclick="openModal('农村低保')">
+                    <span class="policy-category">综合保障</span>
+                    <h3 class="policy-title"><i class="fas fa-shield-alt"></i> 农村低保</h3>
+                    <p class="policy-description">农村低保标准为5376元/人・年，实行分档救助。</p>
+                    <p class="policy-contact"><i class="fas fa-user"></i> 联系：张艳 4610177</p>
+                    <button class="interactive-button" onclick="openModal('农村低保'); event.stopPropagation();">
+                        <i class="fas fa-info-circle"></i> 查看详情
+                    </button>
+                </div>
+                <div class="policy-card" onclick="openModal('农村特困供养')">
+                    <span class="policy-category">综合保障</span>
+                    <h3 class="policy-title"><i class="fas fa-shield-alt"></i> 农村特困供养</h3>
+                    <p class="policy-description">农村特困供养标准为7032元/人・年。</p>
+                    <p class="policy-contact"><i class="fas fa-user"></i> 联系：张艳 4610177</p>
+                    <button class="interactive-button" onclick="openModal('农村特困供养'); event.stopPropagation();">
+                        <i class="fas fa-info-circle"></i> 查看详情
+                    </button>
+                </div>
+                <div class="policy-card" onclick="openModal('临时救助')">
+                    <span class="policy-category">综合保障</span>
+                    <h3 class="policy-title"><i class="fas fa-shield-alt"></i> 临时救助</h3>
+                    <p class="policy-description">对遭遇突发事件等导致基本生活陷入困境的家庭或个人提供救助。</p>
+                    <p class="policy-contact"><i class="fas fa-user"></i> 联系：张艳 4610177</p>
+                    <button class="interactive-button" onclick="openModal('临时救助'); event.stopPropagation();">
+                        <i class="fas fa-info-circle"></i> 查看详情
+                    </button>
+                </div>
+                <div class="policy-card" onclick="openModal('残疾人两项补贴')">
+                    <span class="policy-category">社会帮扶</span>
+                    <h3 class="policy-title"><i class="fas fa-wheelchair"></i> 残疾人两项补贴</h3>
+                    <p class="policy-description">困难残疾人生活补贴和重度残疾人护理补贴。</p>
+                    <p class="policy-contact"><i class="fas fa-user"></i> 联系：晁妮 4613112</p>
+                    <button class="interactive-button" onclick="openModal('残疾人两项补贴'); event.stopPropagation();">
+                        <i class="fas fa-info-circle"></i> 查看详情
+                    </button>
+                </div>
+                <div class="policy-card" onclick="openModal('社会捐助')">
+                    <span class="policy-category">社会帮扶</span>
+                    <h3 class="policy-title"><i class="fas fa-hands-helping"></i> 社会捐助</h3>
+                    <p class="policy-description">引导和鼓励社会力量积极参与乡村振兴，承担社会责任。</p>
+                    <p class="policy-contact"><i class="fas fa-user"></i> 联系：张艳 4610177</p>
+                    <button class="interactive-button" onclick="openModal('社会捐助'); event.stopPropagation();">
+                        <i class="fas fa-info-circle"></i> 查看详情
+                    </button>
+                </div>
+                <div class="policy-card" onclick="openModal('后续帮扶')">
+                    <span class="policy-category">搬迁</span>
+                    <h3 class="policy-title"><i class="fas fa-home"></i> 后续帮扶</h3>
+                    <p class="policy-description">完善安置点基础和公共服务设施配套工程。</p>
+                    <p class="policy-contact"><i class="fas fa-user"></i> 联系：李鹏 4612473</p>
+                    <button class="interactive-button" onclick="openModal('后续帮扶'); event.stopPropagation();">
+                        <i class="fas fa-info-circle"></i> 查看详情
+                    </button>
+                </div>
+                <div class="policy-card" onclick="openModal('避灾搬迁、生态搬迁')">
+                    <span class="policy-category">搬迁</span>
+                    <h3 class="policy-title"><i class="fas fa-mountain"></i> 避灾搬迁、生态搬迁</h3>
+                    <p class="policy-description">按照当年中省市政策落实有关居住条件较差或无法居住农户的搬迁工作。</p>
+                    <p class="policy-contact"><i class="fas fa-user"></i> 联系：王鼎震 4612356</p>
+                    <button class="interactive-button" onclick="openModal('避灾搬迁、生态搬迁'); event.stopPropagation();">
+                        <i class="fas fa-info-circle"></i> 查看详情
+                    </button>
+                </div>
+                <div class="policy-card" onclick="openModal('户厕改造')">
+                    <span class="policy-category">生产生活条件改善</span>
+                    <h3 class="policy-title"><i class="fas fa-toilet"></i> 户厕改造</h3>
+                    <p class="policy-description">根据华阴市农村改厕奖补政策，提供不同类型的户厕改造奖补。</p>
+                    <p class="policy-contact"><i class="fas fa-user"></i> 联系：乔梦娜 4689929</p>
+                    <button class="interactive-button" onclick="openModal('户厕改造'); event.stopPropagation();">
+                        <i class="fas fa-info-circle"></i> 查看详情
+                    </button>
+                </div>
+                <div class="policy-card" onclick="openModal('道路硬化')">
+                    <span class="policy-category">基础设施建设</span>
+                    <h3 class="policy-title"><i class="fas fa-road"></i> 道路硬化</h3>
+                    <p class="policy-description">路基5米，路面4.5米。</p>
+                    <p class="policy-contact"><i class="fas fa-user"></i> 联系：党力强 4610136</p>
+                    <button class="interactive-button" onclick="openModal('道路硬化'); event.stopPropagation();">
+                        <i class="fas fa-info-circle"></i> 查看详情
+                    </button>
+                </div>
+                <div class="policy-card" onclick="openModal('脱贫村电力基础设施提升')">
+                    <span class="policy-category">基础设施建设</span>
+                    <h3 class="policy-title"><i class="fas fa-bolt"></i> 脱贫村电力基础设施提升</h3>
+                    <p class="policy-description">对全市脱贫村电力基础设施进行全面核查、整改、提升工作。</p>
+                    <p class="policy-contact"><i class="fas fa-phone"></i> 联系：4611188</p>
+                    <button class="interactive-button" onclick="openModal('脱贫村电力基础设施提升'); event.stopPropagation();">
+                        <i class="fas fa-info-circle"></i> 查看详情
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section" id="income">
+            <div class="policy-grid">
+                <div class="policy-card" onclick="openModal('产业直补')">
+                    <span class="policy-category">产业帮扶</span>
+                    <h3 class="policy-title"><i class="fas fa-seedling"></i> 产业直补政策</h3>
+                    <p class="policy-description">发展传统种养业每户最高补助5000元，现代设施农业最高10000元。</p>
+                    <p class="policy-contact"><i class="fas fa-user"></i> 联系：张钰 4621128</p>
+                    <button class="interactive-button" onclick="openModal('产业直补'); event.stopPropagation();">
+                        <i class="fas fa-info-circle"></i> 查看详情
+                    </button>
+                </div>
+                <div class="policy-card" onclick="openModal('就业帮扶')">
+                    <span class="policy-category">就业帮扶</span>
+                    <h3 class="policy-title"><i class="fas fa-briefcase"></i> 就业技能培训</h3>
+                    <p class="policy-description">免费技能培训和创业培训，跨省务工补贴每人每年500元。</p>
+                    <p class="policy-contact"><i class="fas fa-user"></i> 联系：姚恬欣 4613072</p>
+                    <button class="interactive-button" onclick="openModal('就业帮扶'); event.stopPropagation();">
+                        <i class="fas fa-info-circle"></i> 查看详情
+                    </button>
+                </div>
+                <div class="policy-card" onclick="openModal('公益岗位')">
+                    <span class="policy-category">公益岗位</span>
+                    <h3 class="policy-title"><i class="fas fa-tools"></i> 公益岗位帮扶</h3>
+                    <p class="policy-description">提供护林员、保洁员等公益岗位，实现就近就业。</p>
+                    <p class="policy-contact"><i class="fas fa-user"></i> 联系：田凌于 4625620</p>
+                    <button class="interactive-button" onclick="openModal('公益岗位'); event.stopPropagation();">
+                        <i class="fas fa-info-circle"></i> 查看详情
+                    </button>
+                </div>
+                <div class="policy-card" onclick="openModal('跨省外出务工补贴')">
+                    <span class="policy-category">就业帮扶</span>
+                    <h3 class="policy-title"><i class="fas fa-briefcase"></i> 跨省外出务工补贴</h3>
+                    <p class="policy-description">跨省就业一次性交通补助每人每年补贴标准不超过500元。</p>
+                    <p class="policy-contact"><i class="fas fa-user"></i> 联系：王洁 4625350</p>
+                    <button class="interactive-button" onclick="openModal('跨省外出务工补贴'); event.stopPropagation();">
+                        <i class="fas fa-info-circle"></i> 查看详情
+                    </button>
+                </div>
+                 <div class="policy-card" onclick="openModal('小额信贷')">
+                    <span class="policy-category">金融帮扶</span>
+                    <h3 class="policy-title">💰 小额信贷贴息</h3>
+                    <p class="policy-description">为脱贫户提供小额信贷支持，用于发展产业和创业。</p>
+                    <p class="policy-contact">联系：潘欢 4625350</p>
+                    <button class="interactive-button" onclick="openModal('小额信贷'); event.stopPropagation();">
+                         <i class="fas fa-info-circle"></i>查看详情
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section" id="security">
+            <div class="policy-grid">
+                <div class="policy-card" onclick="openModal('大病保险')">
+                    <span class="policy-category">健康帮扶</span>
+                    <h3 class="policy-title"><i class="fas fa-heartbeat"></i> 大病保险政策</h3>
+                    <p class="policy-description">对特困人员、低保对象和返贫致贫人口的重大疾病医疗费用进行分段补偿。</p>
+                    <p class="policy-contact"><i class="fas fa-user"></i> 联系：张若飞 4628500</p>
+                    <button class="interactive-button" onclick="openModal('大病保险'); event.stopPropagation();">
+                        <i class="fas fa-info-circle"></i> 查看详情
+                    </button>
+                </div>
+                <div class="policy-card" onclick="openModal('危房改造')">
+                    <span class="policy-category">住房保障</span>
+                    <h3 class="policy-title"><i class="fas fa-home"></i> 危房改造政策</h3>
+                    <p class="policy-description">修缮加固每户补助1.5万元，新建每户不低于2.65万元。</p>
+                    <p class="policy-contact"><i class="fas fa-user"></i> 联系：李婧 4610519</p>
+                    <button class="interactive-button" onclick="openModal('危房改造'); event.stopPropagation();">
+                        <i class="fas fa-info-circle"></i> 查看详情
+                    </button>
+                </div>
+                <div class="policy-card" onclick="openModal('饮水安全')">
+                    <span class="policy-category">饮水安全</span>
+                    <h3 class="policy-title"><i class="fas fa-tint"></i> 饮水安全保障</h3>
+                    <p class="policy-description">解决农村饮水安全问题，确保群众喝上放心水。</p>
+                    <p class="policy-contact"><i class="fas fa-user"></i> 联系：王强 4612345</p>
+                    <button class="interactive-button" onclick="openModal('饮水安全'); event.stopPropagation();">
+                        <i class="fas fa-info-circle"></i> 查看详情
+                    </button>
+                </div>
+                <div class="policy-card" onclick="openModal('城乡基本医疗保险缴费补贴')">
+                    <span class="policy-category">健康帮扶</span>
+                    <h3 class="policy-title"><i class="fas fa-heartbeat"></i> 城乡基本医疗保险缴费补贴</h3>
+                    <p class="policy-description">对特困人员、低保对象等人群参保个人缴费实行分类资助。</p>
+                    <p class="policy-contact"><i class="fas fa-user"></i> 联系：张若飞 4628500</p>
+                    <button class="interactive-button" onclick="openModal('城乡基本医疗保险缴费补贴'); event.stopPropagation();">
+                        <i class="fas fa-info-circle"></i> 查看详情
+                    </button>
+                </div>
+                <div class="policy-card" onclick="openModal('医疗救助')">
+                    <span class="policy-category">健康帮扶</span>
+                    <h3 class="policy-title"><i class="fas fa-heartbeat"></i> 医疗救助</h3>
+                    <p class="policy-description">为不同类别符合条件的困难群体提供医疗费用救助，减轻其医疗负担。</p>
+                    <p class="policy-contact"><i class="fas fa-user"></i> 联系：张若飞 4628500</p>
+                    <button class="interactive-button" onclick="openModal('医疗救助'); event.stopPropagation();">
+                        <i class="fas fa-info-circle"></i> 查看详情
+                    </button>
+                </div>
+                <div class="policy-card" onclick="openModal('大病慢病先诊后付')">
+                    <span class="policy-category">健康帮扶</span>
+                    <h3 class="policy-title"><i class="fas fa-heartbeat"></i> 大病慢病先诊后付</h3>
+                    <p class="policy-description">通过大病专项救治、慢病签约服务和先诊疗后付费等措施，为相关群体提供健康帮扶。</p>
+                    <p class="policy-contact"><i class="fas fa-user"></i> 联系：张若飞 4628500</p>
+                    <button class="interactive-button" onclick="openModal('大病慢病先诊后付'); event.stopPropagation();">
+                        <i class="fas fa-info-circle"></i> 查看详情
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section" id="education">
+            <div class="policy-grid">
+                
+                <div class="policy-card" onclick="openModal('义务教育保障')">
+                    <span class="policy-category">教育帮扶</span>
+                    <h3 class="policy-title"><i class="fas fa-graduation-cap"></i> 义务教育保障</h3>
+                    <p class="policy-description">为困难学生提供生活补助，确保义务教育阶段学生不因贫失学。</p>
+                    <p class="policy-contact"><i class="fas fa-user"></i> 联系：郭向前 4615903</p>
+                    <button class="interactive-button" onclick="openModal('义务教育保障'); event.stopPropagation();">
+                        <i class="fas fa-info-circle"></i> 查看详情
+                    </button>
+                </div>
+                <div class="policy-card" onclick="openModal('助学贷款')">
+                    <span class="policy-category">教育帮扶</span>
+                    <h3 class="policy-title"><i class="fas fa-graduation-cap"></i> 助学贷款</h3>
+                    <p class="policy-description">家庭经济困难大学生可申请办理国家生源地信用助学贷款。</p>
+                    <p class="policy-contact"><i class="fas fa-user"></i> 联系：郭向前 4615903</p>
+                    <button class="interactive-button" onclick="openModal('助学贷款'); event.stopPropagation();">
+                        <i class="fas fa-info-circle"></i> 查看详情
+                    </button>
+                </div>
+                <div class="policy-card" onclick="openModal('普通高中助学金')">
+                    <span class="policy-category">教育帮扶</span>
+                    <h3 class="policy-title"><i class="fas fa-graduation-cap"></i> 普通高中助学金</h3>
+                    <p class="policy-description">资助有正式注册学籍的普通高中家庭经济困难学生。</p>
+                    <p class="policy-contact"><i class="fas fa-user"></i> 联系：郭向前 4615903</p>
+                    <button class="interactive-button" onclick="openModal('普通高中助学金'); event.stopPropagation();">
+                        <i class="fas fa-info-circle"></i> 查看详情
+                    </button>
+                </div>
+                <div class="policy-card" onclick="openModal('雨露计划')">
+                    <span class="policy-category">教育帮扶</span>
+                    <h3 class="policy-title"><i class="fas fa-graduation-cap"></i> 雨露计划</h3>
+                    <p class="policy-description">为接受中等和高等职业教育的农村建档立卡脱贫家庭学生提供补助。</p>
+                    <p class="policy-contact"><i class="fas fa-user"></i> 联系：王洁 4625350</p>
+                    <button class="interactive-button" onclick="openModal('雨露计划'); event.stopPropagation();">
+                        <i class="fas fa-info-circle"></i> 查看详情
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section" id="comprehensive">
+            <div class="policy-grid">
+                <div class="policy-card" onclick="openModal('农村低保')">
+                    <span class="policy-category">综合保障</span>
+                    <h3 class="policy-title"><i class="fas fa-shield-alt"></i> 农村低保</h3>
+                    <p class="policy-description">农村低保标准为5376元/人・年，实行分档救助。</p>
+                    <p class="policy-contact"><i class="fas fa-user"></i> 联系：张艳 4610177</p>
+                    <button class="interactive-button" onclick="openModal('农村低保'); event.stopPropagation();">
+                        <i class="fas fa-info-circle"></i> 查看详情
+                    </button>
+                </div>
+                <div class="policy-card" onclick="openModal('农村特困供养')">
+                    <span class="policy-category">综合保障</span>
+                    <h3 class="policy-title"><i class="fas fa-shield-alt"></i> 农村特困供养</h3>
+                    <p class="policy-description">农村特困供养标准为7032元/人・年。</p>
+                    <p class="policy-contact"><i class="fas fa-user"></i> 联系：张艳 4610177</p>
+                    <button class="interactive-button" onclick="openModal('农村特困供养'); event.stopPropagation();">
+                        <i class="fas fa-info-circle"></i> 查看详情
+                    </button>
+                </div>
+                <div class="policy-card" onclick="openModal('临时救助')">
+                    <span class="policy-category">综合保障</span>
+                    <h3 class="policy-title"><i class="fas fa-shield-alt"></i> 临时救助</h3>
+                    <p class="policy-description">对遭遇突发事件等导致基本生活陷入困境的家庭或个人提供救助。</p>
+                    <p class="policy-contact"><i class="fas fa-user"></i> 联系：张艳 4610177</p>
+                    <button class="interactive-button" onclick="openModal('临时救助'); event.stopPropagation();">
+                        <i class="fas fa-info-circle"></i> 查看详情
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section" id="others">
+            <div class="policy-grid">
+               
+                <div class="policy-card" onclick="openModal('残疾人两项补贴')">
+                    <span class="policy-category">社会帮扶</span>
+                    <h3 class="policy-title"><i class="fas fa-wheelchair"></i> 残疾人两项补贴</h3>
+                    <p class="policy-description">困难残疾人生活补贴和重度残疾人护理补贴。</p>
+                    <p class="policy-contact"><i class="fas fa-user"></i> 联系：晁妮 4613112</p>
+                    <button class="interactive-button" onclick="openModal('残疾人两项补贴'); event.stopPropagation();">
+                        <i class="fas fa-info-circle"></i> 查看详情
+                    </button>
+                </div>
+                <div class="policy-card" onclick="openModal('社会捐助')">
+                    <span class="policy-category">社会帮扶</span>
+                    <h3 class="policy-title"><i class="fas fa-hands-helping"></i> 社会捐助</h3>
+                    <p class="policy-description">引导和鼓励社会力量积极参与乡村振兴，承担社会责任。</p>
+                    <p class="policy-contact"><i class="fas fa-user"></i> 联系：张艳 4610177</p>
+                    <button class="interactive-button" onclick="openModal('社会捐助'); event.stopPropagation();">
+                        <i class="fas fa-info-circle"></i> 查看详情
+                    </button>
+                </div>
+                <div class="policy-card" onclick="openModal('后续帮扶')">
+                    <span class="policy-category">搬迁</span>
+                    <h3 class="policy-title"><i class="fas fa-home"></i> 后续帮扶</h3>
+                    <p class="policy-description">完善安置点基础和公共服务设施配套工程。</p>
+                    <p class="policy-contact"><i class="fas fa-user"></i> 联系：李鹏 4612473</p>
+                    <button class="interactive-button" onclick="openModal('后续帮扶'); event.stopPropagation();">
+                        <i class="fas fa-info-circle"></i> 查看详情
+                    </button>
+                </div>
+                <div class="policy-card" onclick="openModal('避灾搬迁、生态搬迁')">
+                    <span class="policy-category">搬迁</span>
+                    <h3 class="policy-title"><i class="fas fa-mountain"></i> 避灾搬迁、生态搬迁</h3>
+                    <p class="policy-description">按照当年中省市政策落实有关居住条件较差或无法居住农户的搬迁工作。</p>
+                    <p class="policy-contact"><i class="fas fa-user"></i> 联系：王鼎震 4612356</p>
+                    <button class="interactive-button" onclick="openModal('避灾搬迁、生态搬迁'); event.stopPropagation();">
+                        <i class="fas fa-info-circle"></i> 查看详情
+                    </button>
+                </div>
+                <div class="policy-card" onclick="openModal('户厕改造')">
+                    <span class="policy-category">生产生活条件改善</span>
+                    <h3 class="policy-title"><i class="fas fa-toilet"></i> 户厕改造</h3>
+                    <p class="policy-description">根据华阴市农村改厕奖补政策，提供不同类型的户厕改造奖补。</p>
+                    <p class="policy-contact"><i class="fas fa-user"></i> 联系：乔梦娜 4689929</p>
+                    <button class="interactive-button" onclick="openModal('户厕改造'); event.stopPropagation();">
+                        <i class="fas fa-info-circle"></i> 查看详情
+                    </button>
+                </div>
+                <div class="policy-card" onclick="openModal('道路硬化')">
+                    <span class="policy-category">基础设施建设</span>
+                    <h3 class="policy-title"><i class="fas fa-road"></i> 道路硬化</h3>
+                    <p class="policy-description">路基5米，路面4.5米。</p>
+                    <p class="policy-contact"><i class="fas fa-user"></i> 联系：党力强 4610136</p>
+                    <button class="interactive-button" onclick="openModal('道路硬化'); event.stopPropagation();">
+                        <i class="fas fa-info-circle"></i> 查看详情
+                    </button>
+                </div>
+                <div class="policy-card" onclick="openModal('脱贫村电力基础设施提升')">
+                    <span class="policy-category">基础设施建设</span>
+                    <h3 class="policy-title"><i class="fas fa-bolt"></i> 脱贫村电力基础设施提升</h3>
+                    <p class="policy-description">对全市脱贫村电力基础设施进行全面核查、整改、提升工作。</p>
+                    <p class="policy-contact"><i class="fas fa-phone"></i> 联系：4611188</p>
+                    <button class="interactive-button" onclick="openModal('脱贫村电力基础设施提升'); event.stopPropagation();">
+                        <i class="fas fa-info-circle"></i> 查看详情
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- 专业模态框 -->
+    <div id="policyModal" class="modal-overlay">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modalTitle">
+                    <i class="fas fa-file-contract"></i> 政策详情
+                </h2>
+                <button class="modal-close" onclick="closeModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- 模态框内容将通过JavaScript动态加载 -->
+            </div>
+        </div>
+    </div>
+
+    <button class="back-to-top" onclick="scrollToTop()">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+        // 标签切换功能
+        function showSection(sectionId) {
+            // 隐藏所有内容部分
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(section => section.classList.remove('active'));
+            
+            // 移除所有标签的活动状态
+            const tabs = document.querySelectorAll('.nav-tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            
+            // 显示选中的部分
+            document.getElementById(sectionId).classList.add('active');
+            
+            // 激活点击的标签
+            event.target.classList.add('active');
+            
+            // 控制分类筛选器的显示
+            const categoryFilter = document.getElementById('categoryFilter');
+            if (sectionId === 'all') {
+                categoryFilter.style.display = 'block';
+            } else {
+                categoryFilter.style.display = 'none';
+                // 清除分类筛选条件
+                document.querySelector('.category-select').value = '';
+                // 显示所有卡片
+                const policyCards = document.querySelectorAll('.policy-card');
+                policyCards.forEach(card => {
+                    card.style.display = "";
+                });
+            }
+            
+            // 如果是搜索状态，保持搜索过滤效果
+            if (document.querySelector('.search-input').value) {
+                searchPolicies();
+            }
+        }
+        
+        // 搜索输入处理
+        function handleSearchInput(event) {
+            const searchInput = document.getElementById('searchInput');
+            
+            // 显示搜索历史
+            if (searchInput.value.length === 0) {
+                showSearchHistory();
+            } else {
+                hideSearchHistory();
+            }
+            
+            // 执行搜索
+            searchPolicies();
+            
+            // 按回车键保存搜索历史
+            if (event.key === 'Enter' && searchInput.value.trim() !== '') {
+                saveSearchHistory(searchInput.value.trim());
+            }
+        }
+        
+        // 搜索功能
+        function searchPolicies() {
+            const searchInput = document.querySelector('.search-input');
+            const filter = searchInput.value.toUpperCase();
+            const policyCards = document.querySelectorAll('.policy-card');
+            
+            policyCards.forEach(card => {
+                const title = card.querySelector('.policy-title').textContent;
+                const description = card.querySelector('.policy-description').textContent;
+                const category = card.querySelector('.policy-category').textContent;
+                
+                if (title.toUpperCase().indexOf(filter) > -1 || 
+                    description.toUpperCase().indexOf(filter) > -1 || 
+                    category.toUpperCase().indexOf(filter) > -1) {
+                    card.style.display = "";
+                } else {
+                    card.style.display = "none";
+                }
+            });
+            
+            // 如果在"全部政策"标签下搜索，确保该部分是激活的
+            if (filter && document.querySelector('.nav-tab.active').textContent !== '全部政策') {
+                document.getElementById('all').classList.add('active');
+                document.getElementById('income').classList.remove('active');
+                document.getElementById('security').classList.remove('active');
+                document.getElementById('education').classList.remove('active');
+                document.getElementById('comprehensive').classList.remove('active');
+                document.getElementById('others').classList.remove('active');
+            }
+        }
+        
+        // 保存搜索历史
+        function saveSearchHistory(term) {
+            let searchHistory = JSON.parse(localStorage.getItem('policySearchHistory')) || [];
+            
+            // 如果已存在，则移到最前面
+            const index = searchHistory.indexOf(term);
+            if (index !== -1) {
+                searchHistory.splice(index, 1);
+            }
+            
+            // 添加到最前面
+            searchHistory.unshift(term);
+            
+            // 限制最多保存10条记录
+            if (searchHistory.length > 10) {
+                searchHistory = searchHistory.slice(0, 10);
+            }
+            
+            // 保存到本地存储
+            localStorage.setItem('policySearchHistory', JSON.stringify(searchHistory));
+        }
+        
+        // 显示搜索历史
+        function showSearchHistory() {
+            const searchHistory = JSON.parse(localStorage.getItem('policySearchHistory')) || [];
+            const historyItems = document.getElementById('historyItems');
+            const searchHistoryDiv = document.getElementById('searchHistory');
+            
+            if (searchHistory.length > 0) {
+                historyItems.innerHTML = '';
+                searchHistory.forEach(term => {
+                    const span = document.createElement('span');
+                    span.className = 'history-item';
+                    span.textContent = term;
+                    span.onclick = function() {
+                        document.getElementById('searchInput').value = term;
+                        searchPolicies();
+                        hideSearchHistory();
+                    };
+                    historyItems.appendChild(span);
+                });
+                searchHistoryDiv.style.display = 'block';
+            } else {
+                searchHistoryDiv.style.display = 'none';
+            }
+        }
+        
+        // 隐藏搜索历史
+        function hideSearchHistory() {
+            document.getElementById('searchHistory').style.display = 'none';
+        }
+        
+        // 点击页面其他地方隐藏搜索历史
+        document.addEventListener('click', function(event) {
+            const searchSection = document.querySelector('.search-section');
+            if (!searchSection.contains(event.target)) {
+                hideSearchHistory();
+            }
+        });
+        
+        // 分类筛选功能
+        function filterByCategory(category) {
+            const policyCards = document.querySelectorAll('.policy-card');
+            
+            policyCards.forEach(card => {
+                const cardCategory = card.querySelector('.policy-category').textContent;
+                
+                if (category === '' || cardCategory === category) {
+                    card.style.display = "";
+                } else {
+                    card.style.display = "none";
+                }
+            });
+        }
+        
+        // 模态框数据
+        const policyData = {
+            '产业直补': {
+                title: '<i class="fas fa-seedling"></i> 产业直补政策',
+                content: `
+                    <div class="policy-details-grid">
+                        <div>
+                            <span class="policy-tag">增收类/产业帮扶/产业直补/特惠性/长期性</span>
+                        </div>
+                       
+                        <div class="detail-card">
+                            <h3><i class="fas fa-clipboard-list"></i> 政策标准</h3>
+                            <li>直补资金不能高于脱贫户发展产业项目的投入资金。发展传统种养业每户最高补助不超过 5000 元，发展现代设施农业和小型农副产品加工业每户最高补助不超过 10000 元。具体如下：</li>
+                            <ol>
+                                <li><strong>种植业：</strong>脱贫户（含监测对象）种植经济作物，如花椒、油菜、蔬菜等，每亩一次性补助 400 元；种植食用菌，每千袋一次性补助 400 元。</li>
+                                <li><strong>养殖业：</strong>养殖大型家畜，每头一次性补助 500 元；养殖中型家畜，每头一次性补助 300 元；当年新购养殖禽苗 100 羽以上，每百羽一次性补助 200 元，养殖成禽每只一次性补助 20 元；水产养殖，每亩水面一次性补助 300 元；当年新购养殖其它家畜或特殊家禽的，每头（只）一次性补助 200 元。</li>
+                                <li><strong>现代设施农业：</strong>新建日光温室（厚墙体、全钢架、砖耳房结构，棚型规格整齐一致，棚内跨度宽 8 - 10 米，顶部高度不低于 3 米，长度不少于 100 米，并配套自动卷帘机，棚内渠道为暗管）每栋一次性补助 6000 元；设施大棚（全钢架结构，棚型规格整齐一致，棚体弓高不低于 2.5 米，跨度不小于 7 米，长度不少于 90 米）每棚一次性补助 3000 元。脱贫户如租赁大棚发展产业按经济作物进行补助。</li>
+                                <li><strong>其他情况：</strong>发展小型农副产品加工业及其他增收产业所需的设施，购买种苗、种畜等费用的补助，按照投资总额的 30% 给予资助扶持，补助资金最高不超过 10000 元。</li>
+                            <ol>
+                        </div>
+                    </div>
+                    
+                    <div class="policy-details-grid">
+                        <div class="detail-card">
+                            <h3><i class="fas fa-check-circle"></i> 申报条件</h3>
+                            <li>脱贫户（含监测对象）自主发展产业项目</li>
+                        </div>
+                        <div class="detail-card">
+                            <h3><i class="fas fa-route"></i> 申报程序</h3>
+                            <li>产业直补项目实行先实施、再验收、后补助的办法。由脱贫户（含监测对象）根据自己实施的产业提出申请，各镇（办）按照补助标准组织各村进行自验，上报本辖区产业直补项目受益户拟补助资金相关资料，市农业农村局对镇（办）上报的资料初步审核，并联合市财政局、纪委监委、审计局等部门对镇（办）验收上报的项目进行抽验，对符合产业直补规定的脱贫户，按照该市财政资金报账管理相关规定，通过"一卡（折）通"的形式将补助资金直补到户。</li>
+                        </div>
+                        <div class="detail-card">
+                            <h3><i class="fas fa-file-alt"></i> 申报资料</h3>
+                            <li>产业直补项目审核表</li>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-section">
+                        <h3><i class="fas fa-address-book"></i> 联系方式</h3>
+                        <div class="contact-info">
+                            <div class="contact-item">
+                                <div class="contact-icon"><i class="fas fa-building"></i></div>
+                                <div>华阴市农业农村局</div>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-icon"><i class="fas fa-user"></i></div>
+                                <div>张钰 4621128</div>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            '就业帮扶': {
+                title: '<i class="fas fa-briefcase"></i> 就业技能培训',
+                content: `
+                    <div class="policy-details-grid">
+                        <div>
+                            <span class="policy-tag">增收类/就业帮扶/技能培训/普惠性/长期性</span>
+                        </div>
+                       
+                        
+                    </div>
+                    
+                    <div class="policy-details-grid">
+                        <div class="detail-card">
+                            <h3><i class="fas fa-clipboard-list"></i> 政策标准</h3>
+                            <li>建档立卡脱贫劳动力及三类人员，每人每年享受一次免费技能（创业）培训。</li>
+                        </div>
+
+                        <div class="detail-card">
+                            <h3><i class="fas fa-check-circle"></i> 申报条件</h3>
+                            <li>法定劳动年龄内（女 16 - 50 周岁，男 16 - 55 周岁）的脱贫劳动力及三类人员，参加免费就业技能培训和创业培训。</li>
+                        </div>
+                        <div class="detail-card">
+                            <h3><i class="fas fa-route"></i> 申报程序</h3>
+                            <li>符合培训条件的脱贫劳动力及三类人员到户籍所在镇（办）劳动保障服务中心进行报名，按照要求，提供参加免费培训身份证明材料及其他资料，开班前通知，按时参加就业（创业）培训，培训结束后，对参训合格学员发放《陕西省就业（创业）培训合格证》。</li>
+                        </div>
+                        <div class="detail-card">
+                            <h3><i class="fas fa-file-alt"></i> 申报资料</h3>
+                            <li>报名时需提供身份证件及享受免费培训的有效证件和复印件等资料。</li>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-section">
+                        <h3><i class="fas fa-address-book"></i> 联系方式</h3>
+                        <div class="contact-info">
+                            <div class="contact-item">
+                                <div class="contact-icon"><i class="fas fa-building"></i></div>
+                                <div>华阴市人社局</div>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-icon"><i class="fas fa-user"></i></div>
+                                <div>姚恬欣 4613072</div>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            '小额信贷': {
+                title: '<i class="fas fa-money-bill-wave"></i> 小额信贷贴息',
+                content: `
+                    <div class="policy-details-grid">
+                        <div>
+                            <span class="policy-tag">增收类/金融帮扶/小额信贷/特惠性/长期性</span>
+                        </div>                                              
+                    </div>
+                    
+                    <div class="policy-details-grid">
+                        <div class="detail-card">
+                            <h3><i class="fas fa-clipboard-list"></i> 政策标准</h3>
+                            <li>脱贫户及三类户申请条件：</li>
+                            <ol>
+                                <li>在建档立卡信息系统内。</li>
+                                <li>年龄在18-60周岁（每户限一人），身体健康，有劳动能力且具有完全民事能力的公民。</li>
+                                <li>个人信用良好，无违法行为和不良嗜好。</li>
+                                <li>参加过实用技术培训，有具体的发展和创业项目，完成前期准备工作，并开始启动实施。</li>
+                                <li>贷款用于发展产业和创业生产经营活动。</li>
+                                <li>对于不按时还款的脱贫户及三类户，不予贴息，并收缴本息。</li>
+                            </ol>
+                        </div>
+                        <div class="detail-card">
+                            <h3><i class="fas fa-check-circle"></i> 申报条件</h3>
+                            <li>脱贫户（含监测对象）</li>
+                        </div>
+                        <div class="detail-card">
+                            <h3><i class="fas fa-route"></i> 申报程序</h3>
+                            <ol>
+                                <li>申请人填写贷款申请表；</li>
+                                <li>村委会审核申请人产业开展情况、结合评级守信情况并签字盖章；</li>
+                                <li>镇（街道）审核申请人在库情况及产业情况并签字盖章；</li>
+                                <li>金融部门入户调查产业发展情况并签字盖章；</li>
+                                <li>农业农村局集中复核申请人在库情况并签字盖章；</li>
+                                <li>金融部门发放贷款。</li>
+                            </ol>
+                        </div>
+                        <div class="detail-card">
+                            <h3><i class="fas fa-file-alt"></i> 申报资料</h3>
+                            <li>脱贫户小额贴息贷款业务申请表</li>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-section">
+                        <h3><i class="fas fa-address-book"></i> 联系方式</h3>
+                        <div class="contact-info">
+                            <div class="contact-item">
+                                <div class="contact-icon"><i class="fas fa-building"></i></div>
+                                <div>华阴市农业农村局</div>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-icon"><i class="fas fa-user"></i></div>
+                                <div>潘欢 4625350</div>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            '公益岗位': {
+                title: '<i class="fas fa-tools"></i> 公益岗位帮扶',
+                content: `
+                    <div class="policy-details-grid">
+                        <div>
+                            <span class="policy-tag">增收类/公益岗位/特惠性/长期性</span>
+                        </div>                       
+                    </div>
+                    
+                    <div class="policy-details-grid">
+                        <div class="detail-card">
+                            <h3><i class="fas fa-clipboard-list"></i> 政策标准</h3>
+                            <ol>
+                                <li>特设就业扶贫公益岗位根据《华阴市就业扶贫工作领导小组关于特设就业扶贫公益性岗位助推就业扶贫工作的通知》（阴就扶贫发 [2017] 5 号）。</li>
+                                <li>公益专岗依据《中共华阴市委农村工作领导小组办公室关于开发乡村振兴公益专岗工作的通知》（阴农领办发 [2025] 6 号）。</li>
+                            </ol>
+                        </div>
+                       
+                        <div class="detail-card">
+                            <h3><i class="fas fa-check-circle"></i> 申报条件</h3>
+                            <li>法定劳动年龄内（16 - 60 周岁）的脱贫劳动力及三类人员</li>
+                        </div>
+                        <div class="detail-card">
+                            <h3><i class="fas fa-route"></i> 申报程序</h3>
+                            <ol>
+                                <li>符合条件的脱贫劳动力及三类人员到户籍所在村进行报名通过公示，由镇（办）按照要求报市人社局。</li>
+                                <li>补贴申报：公益岗位每月申报一次。申请补贴的镇办于每月 1 - 10 日向所属人力资源社会保障就业行政管理部门提出补贴申请，并报送相关材料。人力资源社会保障就业行政管理部门受理补贴申请资料。</li>
+                                <li>补贴审核：人力资源社会保障就业行政管理部门对补贴申报材料进行审核检查，并根据审查结果确定补贴人数和补贴金额。无异议后，按程序向申请补贴的镇办拨付补贴资金。</li>
+                                <li>公益专岗补贴：由用人单位自行支付。</li>
+                            </ol>
+                        </div>
+                        <div class="detail-card">
+                            <h3><i class="fas fa-file-alt"></i> 申报资料</h3>
+                            <ol>
+                                <li><strong>人员申报材料：</strong>特设就业扶贫公益性岗位从业贫困劳动力认定表、劳动合同原件、身份证复印件。</li>
+                                <li><strong>补贴申请材料：</strong>华阴市特设就业扶贫公益性岗位申请认定表、华阴市特设就业扶贫公益性岗位补贴审批表、银行回执单复印件、特设就业扶贫公益性岗位人员工资补贴发放单、考勤表、公示照片、资金结算往来票据、月申请报文。</li>
+                            </ol>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-section">
+                        <h3><i class="fas fa-address-book"></i> 联系方式</h3>
+                        <div class="contact-info">
+                            <div class="contact-item">
+                                <div class="contact-icon"><i class="fas fa-building"></i></div>
+                                <div>华阴市人社局</div>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-icon"><i class="fas fa-user"></i></div>
+                                <div>田凌于 4625620</div>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            '跨省外出务工补贴': {
+                title: '<i class="fas fa-briefcase"></i> 跨省外出务工补贴',
+                content: `
+                    <div class="policy-details-grid">
+                        <div>
+                            <span class="policy-tag">增收类/就业帮扶/外出务工补贴/特惠性/长期性</span>
+                        </div>
+                    </div>
+                    
+                    <div class="policy-details-grid">
+                         <div class="detail-card">
+                            <h3><i class="fas fa-clipboard-list"></i> 政策标准</h3>
+                            <li>脱贫人口跨省就业一次性交通补助每人每年补贴标准不超过 500 元，每人每年只享受一次，补助资金由衔接推进乡村振兴补助资金列支。全年均可申报。</li>
+                        </div>
+                        <div class="detail-card">
+                            <h3><i class="fas fa-check-circle"></i> 申报条件</h3>
+                            <li>脱贫户（含监测对象）</li>
+                        </div>
+                        <div class="detail-card">
+                            <h3><i class="fas fa-route"></i> 申报程序</h3>
+                            <ol>
+                                <li><strong>个人领取：</strong>在驻村工作队或者镇（办）领取《华阴市脱贫人口跨省就业一次性交通补助申请表》。</li>
+                                <li><strong>村委会审核：</strong>申请表基本信息、附件完整（身份证复印件、就业证明、惠农一卡通复印件、交通票据），申请资料真实、申请表信息一致后加盖村委会公章，上报镇（办）。</li>
+                                <li><strong>镇（办）审核：</strong>申请表基本信息、附件完整（身份证复印件、就业证明、惠农一卡通复印件、交通票据），确保申请资料真实、申请表信息一致；规范粘贴票据、填写汇总花名册、规范公示，无异议后加盖公章，将纸质版与电子版材料报送市农业农村局。</li>
+                                <li><strong>市农业农村局审核：</strong>申请表基本信息、附件完整（身份证复印件、就业证明、惠农一卡通复印件、交通票据），汇总花名册，规范公示，无异议后核定补贴标准，将交通补助足额发放至脱贫人口申报的惠农一卡通。</li>
+                            </ol>
+                        </div>
+                        <div class="detail-card">
+                            <h3><i class="fas fa-file-alt"></i> 申报资料</h3>
+                            <li>华阴市脱贫人口跨省就业一次性交通补助申请表、身份证复印件、外出务工证明（外出务工就业证明：原则上能提供务工证明的均需要提供务工三个月以上的相关证明；不能及时提供务工证明的，提供真实外出务工佐证即可，包括：劳动合同、工资发放明细或个人工资发放银行流水等）、惠农一卡通复印件、交通票据。</li>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-section">
+                        <h3><i class="fas fa-address-book"></i> 联系方式</h3>
+                        <div class="contact-info">
+                            <div class="contact-item">
+                                <div class="contact-icon"><i class="fas fa-building"></i></div>
+                                <div>华阴市农业农村局</div>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-icon"><i class="fas fa-user"></i></div>
+                                <div>王洁 4625350</div>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            '危房改造': {
+                title: '<i class="fas fa-home"></i> 危房改造政策',
+                content: `
+                    <div class="policy-details-grid">
+                        <div>
+                            <span class="policy-tag">三保障类/住房保障/危房改造/特惠性/长期性</span>
+                        </div>
+                       
+                        
+                    </div>
+                    
+                    <div class="policy-details-grid">
+                        <div class="detail-card">
+                            <h3><i class="fas fa-clipboard-list"></i> 政策标准</h3>
+                            <li>修缮加固每户平均补助1.5万元；新建每户不低于2.65万元。</li>
+                        </div>
+                        
+                        <div class="detail-card">
+                            <h3><i class="fas fa-check-circle"></i> 申报条件</h3>
+                            <li>农村易返贫致贫户、农村低保户、农村分散供养特困人员，农村低保边缘家庭、因病因灾因意外事故等刚性支出较大或收入大幅缩减导致基本生活出现严重困难的支出型困难人口、未享受过农村住房保障政策支持且依靠自身力量无法解决住房安全问题的其他脱贫户。有一处且为唯一安全住房。</li>
+                        </div>
+                        <div class="detail-card">
+                            <h3><i class="fas fa-route"></i> 申报程序</h3>
+                            <ol>
+                                <li>农户自愿申请。</li>
+                                <li>村民会议或村民代表会议民主评议。</li>
+                                <li>镇（办）审核。</li>
+                                <li>县级审批。</li>
+                            </ol>
+                        </div>
+                        <div class="detail-card">
+                            <h3><i class="fas fa-file-alt"></i> 申报资料</h3>
+                            <li>基本信息表、危房改造照片（前、中、后）、农村危房改造申请书、户主身份证复印件、户口本复印件、农村危房改造对象公示证明、农村危房改造对象认定表、农村危房改造申报审批表、农村危房改造协议、资质、资格复印件、农村危房改造质量安全检查记录、农村危房改造竣工验收表、农村危房改造房屋安全性评定意见表、资金补助兑付证明。</li>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-section">
+                        <h3><i class="fas fa-address-book"></i> 联系方式</h3>
+                        <div class="contact-info">
+                            <div class="contact-item">
+                                <div class="contact-icon"><i class="fas fa-building"></i></div>
+                                <div>华阴市住建局</div>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-icon"><i class="fas fa-user"></i></div>
+                                <div>李婧 4610519</div>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            '饮水安全': {
+                title: '<i class="fas fa-tint"></i> 饮水安全保障',
+                content: `
+                    <div class="policy-details-grid">
+                        <div>
+                            <span class="policy-tag">三保障类/饮水安全/普惠性/长期性</span>
+                        </div>
+                       
+                      
+                    </div>
+                    
+                    <div class="policy-details-grid">
+                          <div class="detail-card">
+                            <h3><i class="fas fa-clipboard-list"></i> 政策标准</h3>
+                            <li><strong>水质：</strong>符合《生活饮用水卫生标准》（GB5749）以及有关评价标准的规定。</li>
+                            <li><strong>水量：</strong>居民生活用水量达到每人每天20升以上。</li>
+                            <li><strong>方便程度：</strong>供水到户或人力取水往返时间不超过20分钟。</li>
+                            <li><strong>供水保证率：</strong>一般地区不低于95%，严重缺水地区不低于90%。</li>
+                        </div>
+                       
+                        <div class="detail-card">
+                            <h3><i class="fas fa-check-circle"></i> 申报条件</h3>
+                            <li>群众生活饮用水不符合四项标准。</li>
+                        </div>
+                        <div class="detail-card">
+                            <h3><i class="fas fa-route"></i> 申报程序</h3>
+                            <ol>
+                                <li>行政村负责收集不符合四项标准的问题。</li>
+                                <li>村级会议研究确定问题，上报至镇（办），镇（办）统一正式行文至市水务局。</li>
+                                <li>市水务局接文后，安排专人对群众饮水安全问题进行复核。</li>
+                                <li>存在问题，能立行立改的，市水务局立即整改；需项目解决的，市水务局要做好项目前期工作，积极争取资金实施项目。</li>
+                            </ol>
+                        </div>
+                        <div class="detail-card">
+                            <h3><i class="fas fa-file-alt"></i> 申报资料</h3>
+                            <li><strong>四项标准不达标的相关印证：</strong>如水质不达标，需要提供有 CMA 资质的水质检测报告。</li>
+                            <li><strong>村级会议纪录：</strong>村两委、驻村工作队和供水管理单位参加并确认。</li>
+                            <li><strong>镇级正式上报文件。</strong></li>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-section">
+                        <h3><i class="fas fa-address-book"></i> 联系方式</h3>
+                        <div class="contact-info">
+                            <div class="contact-item">
+                                <div class="contact-icon"><i class="fas fa-building"></i></div>
+                                <div>华阴市水务局</div>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-icon"><i class="fas fa-user"></i></div>
+                                <div>杨江虹 15191378200</div>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            '城乡基本医疗保险缴费补贴': {
+                title: '<i class="fas fa-heartbeat"></i> 城乡基本医疗保险缴费补贴',
+                content: `
+                    <div class="policy-details-grid">
+                        <div>
+                            <span class="policy-tag">三保障类/健康帮扶/医疗保障/特惠性/长期性</span>
+                        </div>
+                    </div>
+                    
+                    <div class="policy-details-grid">
+                        <div class="detail-card">
+                            <h3><i class="fas fa-clipboard-list"></i> 政策标准</h3>
+                            <li>我市居民医保参保缴费对部分人员参保个人缴费实行分类资助，参保资助资金由财政资金和医疗救助基金解决。享受多重身份参保资助的参保人员，按其中对应最高资助标准的一种身份享受参保资助，不得重复享受参保资助。</li>
+                            <ul>
+                                <li><strong>特困人员、孤儿（含事实无人抚养儿童）：</strong>给予全额资助，资助资金由医疗救助基金支出。</li>
+                                <li><strong>低保对象：</strong>按 290元/人标准资助，资助资金由医疗救助基金解决，享受资助后个人承担部分由参保人员自行缴纳。</li>
+                                <li><strong>纳入监测范围的农村易返贫致贫人口（脱贫不稳定户、边缘易致贫户、突发严重困难户）：</strong>给予定额资助，省、渭南市财政分别按 45 元 / 人的标准资助，县级财政资助标准为 200 元 / 人，享受资助后个人承担部分由参保人员自行缴纳。</li>
+                                <li><strong>农业农村部门认定的返贫致贫人口：</strong>过渡期内按规定享受参保资助政策，按照低保对象资助标准给予定额资助，资助资金由医疗救助基金解决。</li>
+                                <li><strong>农村独生子女（双女）父母及十八岁以下子女：</strong>参加居民医保个人缴费补助按照《渭南市农村独生子女（双女）父母参加城乡居民医疗保险个人缴费补助办法》（渭卫健发【2023】96 号）文件执行。（以后年度缴费标准和资助标准以当年征缴文件为准）</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="detail-card">
+                            <h3><i class="fas fa-check-circle"></i> 申报条件</h3>
+                            <li>特困人员、孤儿（含事实无人抚养儿童）、低保对象、纳入监测范围的农村易返贫致贫人口（脱贫不稳定户、边缘易致贫户、突发严重困难户）等各类享受参保资助人员，由市民政局、农业农村局分别核实核准，认定时间以缴费当年 12 月 31 日前各相关部门认定结果为准。</li>
+                        </div>
+                        
+                        <div class="detail-card">
+                            <h3><i class="fas fa-route"></i> 申报程序</h3>
+                            <li>市医保局对市农业农村局、市民政局提供的符合资助标准的人员名单进行数据核实，对多重身份人员按照就高不就低的原则。</li>
+                        </div>                      
+                    </div>
+                    
+                    <div class="contact-section">
+                        <h3><i class="fas fa-address-book"></i> 联系方式</h3>
+                        <div class="contact-info">
+                            <div class="contact-item">
+                                <div class="contact-icon"><i class="fas fa-building"></i></div>
+                                <div>华阴市医保局</div>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-icon"><i class="fas fa-user"></i></div>
+                                <div>张若飞 4628500</div>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            '医疗救助': {
+                title: '<i class="fas fa-heartbeat"></i> 医疗救助',
+                content: `
+                    <div class="policy-details-grid">
+                        <div>
+                            <span class="policy-tag">三保障类/健康帮扶/医疗救助/特惠性/长期性</span>
+                        </div>
+                    </div>
+                    
+                    <div class="policy-details-grid">
+                        <div class="detail-card">
+                            <h3><i class="fas fa-clipboard-list"></i> 政策标准</h3>
+                            <ul>
+                                <li><strong>一类救助对象：</strong>不设起付线，救助比例100%，不设置年度最高救助限额。</li>
+                                <li><strong>二类救助对象：</strong>其中的低保对象不设起付线，低保边缘家庭成员、纳入监测范围的农村易致贫返贫人口（脱贫不稳定户、边缘易致贫户、突发严重困难户）起付线 2600 元，救助比例统一为70%，年度最高救助限额为8万元。</li>
+                                <li><strong>三类救助对象：</strong>年度起付线为6400元，救助比例为60%，年度最高救助限额为5万元。（以上政策实行动态调整，以最新文件为准）</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="policy-details-grid">
+                        <div class="detail-card">
+                            <h3><i class="fas fa-check-circle"></i> 申报条件</h3>
+                            <ul>
+                                <li><strong>一类救助对象：</strong>特困人员、孤儿（含事实无人抚养儿童）。以市民政局认定为准。</li>
+                                <li><strong>二类救助对象：</strong>低保对象、低保边缘家庭成员、纳入监测范围的农村易返贫致贫人口（脱贫不稳定户、边缘易致贫户、突发严重困难户）。以市民政局和市农业农村局认定为准。</li>
+                                <li><strong>三类救助对象：</strong>发生高额医疗费用，家庭年收入扣除政策范围内个人自付医疗费用后，人均不超过当地 1.5 倍最低生活保障标准，且家庭财产符合当地最低生活保障财产条件的重病患者（简称因病致贫重病患者）。</li>
+                                <li><strong>多重身份人员：</strong>按照就高不重复原则享受待遇。</li>
+                            </ul>
+                        </div>
+                        <div class="detail-card">
+                            <h3><i class="fas fa-route"></i> 申报程序</h3>
+                            <ul>
+                                <li><strong>一类、二类救助对象：</strong>在我市定点医药机构实行"一站式"即时结算，患者本人无需进行救助申请。</li>
+                                <li><strong>三类救助对象：</strong>申请救助时，持相关证件和必要材料到所在乡镇（街道）提出书面申请，经审核并在救助对象居住地村（社区）公示后，报市医保局审批。</li>
+                            </ul>
+                        </div>
+                        <div class="detail-card">
+                            <h3><i class="fas fa-file-alt"></i> 申报资料</h3>
+                            <p>申请对象向户籍所在地的乡镇（街道）提出医疗救助申请，应如实填写《医疗救助申请卡》，并提供以下资料：</p>
+                            <ul>
+                                <li>患者病例首页、诊断证明。</li>
+                                <li>基本医疗保险住院费用结算单。</li>
+                                <li>大病保险报销结算单。</li>
+                                <li>医院收费总费用票据。</li>
+                                <li>相关单位或者部门补助的费用和互助帮困等凭证。</li>
+                                <li>救助对象身份证复印件、家庭户口簿整户复印件。</li>
+                                <li>患者本人银行卡复印件（手写户名、账号、开户行、联系电话）。</li>
+                                <li>个人申请一份，两委盖章。</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-section">
+                        <h3><i class="fas fa-address-book"></i> 联系方式</h3>
+                        <div class="contact-info">
+                            <div class="contact-item">
+                                <div class="contact-icon"><i class="fas fa-building"></i></div>
+                                <div><strong>联系部门：</strong>华阴市医保局</div>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-icon"><i class="fas fa-user"></i></div>
+                                <div><strong>联系人：</strong>张若飞</div>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-icon"><i class="fas fa-phone"></i></div>
+                                <div><strong>联系电话：</strong>4628500</div>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            '助学贷款': {
+                title: '<i class="fas fa-graduation-cap"></i> 助学贷款',
+                content: `
+                    <div class="policy-details-grid">
+                        <div>
+                            <span class="policy-tag">三保障类/教育帮扶/助学贷款/普惠性/长期性</span>
+                        </div>
+                    </div>
+                    
+                    <div class="policy-details-grid">
+                        <div class="detail-card">
+                            <h3><i class="fas fa-clipboard-list"></i> 政策标准</h3>
+                            <li>家庭经济困难大学生可申请办理国家生源地信用助学贷款，助学贷款优先用于支付在校期间学费和住宿费，超出部分可用于弥补日常生活费。本、专科每生每学年最高不超过20000元，研究生每生每学年不高于25000元。在校期间利息由国家承担。助学贷款期限为剩余学制加15年，最长不超过22年。</li>
+                        </div>
+                    </div>
+                    
+                    <div class="policy-details-grid">
+                        <div class="detail-card">
+                            <h3><i class="fas fa-check-circle"></i> 申报条件</h3>
+                            <ul>
+                                <li>具有中华人民共和国国籍。</li>
+                                <li>被根据国家有关规定批准设立、实施高等学历教育的全日制普通本科高校、高等职业学校和高等专科学校（含民办高校和独立学院）、科研院所、党校、行政学院、会计学院（学校名单以教育部公布的为准）正式录取，取得真实、合法、有效的录取通知书的全日制新生（含预科生）或高校在读的本专科学生、研究生和第二学士学生。</li>
+                                <li>学生本人入学前户籍、其共同借款人户籍原则上均在本县（市、区）。</li>
+                                <li>诚实守信，遵纪守法。</li>
+                                <li>家庭经济困难，家庭所能获得收入不足以支持学生在校期间完成学业所需的基本费用。</li>
+                                <li>当年没有获得其他国家助学贷款。</li>
+                            </ul>
+                        </div>
+                        <div class="detail-card">
+                            <h3><i class="fas fa-route"></i> 申报程序</h3>
+                            <ol>
+                                <li>首贷学生登陆<a href="http://sls.cdb.com.cn" target="_blank">http://sls.cdb.com.cn</a>（国家开发银行生源地信用助学贷款在线系统）注册、申请、打印《国家开发银行生源地信用助学贷款申请表》，然后现场办理、签订合同、打印受理证明。</li>
+                                <li>续贷学生可远程受理，登陆<a href="http://sls.cdb.com.cn" target="_blank">http://sls.cdb.com.cn</a>（国家开发银行生源地信用助学贷款在线系统）身份验证、填写续贷信息、提交申请，等市（县、区）级学生资助管理中心审核通过后，再登陆系统打印受理证明。</li>
+                            </ol>
+                        </div>
+                        <div class="detail-card">
+                            <h3><i class="fas fa-file-alt"></i> 申报资料</h3>
+                            <ul>
+                                <li>借款学生和共同借款人身份证原件及复印件1份。</li>
+                                <li>录取通知书（或学生证）原件及复印件1份。</li>
+                                <li>借款学生签字的《国家开发银行生源地信用助学贷款申请表》原件1份；未通过预申请的学生还需要携带《家庭经济困难学生认定表》原件1份。</li>
+                                <li>户口簿原件。</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-section">
+                        <h3><i class="fas fa-address-book"></i> 联系方式</h3>
+                        <div class="contact-info">
+                            <div class="contact-item">
+                                <div class="contact-icon"><i class="fas fa-building"></i></div>
+                                <div><strong>联系部门：</strong>华阴市教育体育局</div>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-icon"><i class="fas fa-user"></i></div>
+                                <div><strong>联系人：</strong>郭向前</div>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-icon"><i class="fas fa-phone"></i></div>
+                                <div><strong>联系电话：</strong>4615903</div>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            '义务教育保障': {
+                title: '<i class="fas fa-graduation-cap"></i> 义务教育保障',
+                content: `
+                    <div class="policy-details-grid">
+                        <div>
+                            <span class="policy-tag">三保障类/教育帮扶/困难学生生活补助/特惠性/长期性</span>
+                        </div>
+                    </div>
+                    
+                    <div class="policy-details-grid">
+                        <div class="detail-card">
+                            <h3><i class="fas fa-clipboard-list"></i> 政策标准</h3>
+                            <li>义务教育家庭经济困难学生生活补助，家庭经济困难寄宿生生活补助国家基础标准为每生每学年小学1250元、初中1500元，按照国家基础标准50%核定家庭经济困难非寄宿生生活补助标准。</li>
+                        </div>
+                    </div>
+                    
+                    <div class="policy-details-grid">
+                        <div class="detail-card">
+                            <h3><i class="fas fa-check-circle"></i> 申报条件</h3>
+                            <ul>
+                                <li>农业农村局认定的脱贫家庭、脱贫不稳定家庭、边缘易致贫家庭、突发严重困难家庭学生。</li>
+                                <li>民政部门认定的城乡低保家庭学生、特困救助供养学生、孤儿学生。</li>
+                                <li>退役军人事务部门评定的烈士子女或优抚对象子女。</li>
+                                <li>残联认定的学生本人残疾或困难(重度)残疾人家庭子女。</li>
+                                <li>单亲困难家庭子女。</li>
+                                <li>父母丧失劳动能力或劳动能力弱。</li>
+                                <li>直系亲属有大病患者。</li>
+                                <li>特困职工家庭子女。</li>
+                                <li>家庭遭受突发变故（含重大灾害、意外事故、重大风险事件等）。</li>
+                                <li>其他情况导致家庭经济困难的学生（如家庭成员失业情况等）。</li>
+                            </ul>
+                        </div>
+                        <div class="detail-card">
+                            <h3><i class="fas fa-route"></i> 申报程序</h3>
+                            <ol>
+                                <li>提前告知。</li>
+                                <li>学生（或监护人）申请。</li>
+                                <li>学校认定。</li>
+                                <li>结果公示。</li>
+                                <li>建档备案。</li>
+                            </ol>
+                        </div>
+                        <div class="detail-card">
+                            <h3><i class="fas fa-file-alt"></i> 申报资料</h3>
+                            <li>提供所申报条件中的相关佐证资料</li>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-section">
+                        <h3><i class="fas fa-address-book"></i> 联系方式</h3>
+                        <div class="contact-info">
+                            <div class="contact-item">
+                                <div class="contact-icon"><i class="fas fa-building"></i></div>
+                                <div><strong>联系部门：</strong>华阴市教育体育局</div>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-icon"><i class="fas fa-user"></i></div>
+                                <div><strong>联系人：</strong>郭向前</div>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-icon"><i class="fas fa-phone"></i></div>
+                                <div><strong>联系电话：</strong>4615903</div>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            '普通高中助学金': {
+                title: '<i class="fas fa-graduation-cap"></i> 普通高中助学金',
+                content: `
+                    <div class="policy-details-grid">
+                        <div>
+                            <span class="policy-tag">三保障类/教育帮扶/普通高中助学金/普惠性/长期性</span>
+                        </div>
+                    </div>
+                    
+                    <div class="policy-details-grid">
+                        <div class="detail-card">
+                            <h3><i class="fas fa-clipboard-list"></i> 政策标准</h3>
+                            <li>资助有正式注册学籍的普通高中家庭经济困难学生。分两档，一般困难学生每生每学年 1800 元，特别困难学生每生每学年 2800 元。</li>
+                        </div>
+                    </div>
+                    
+                    <div class="policy-details-grid">
+                        <div class="detail-card">
+                            <h3><i class="fas fa-check-circle"></i> 申报条件</h3>
+                            <ul>
+                                <li>农业农村局认定的脱贫家庭、脱贫不稳定家庭、边缘易致贫家庭、突发严重困难家庭学生。</li>
+                                <li>民政部门认定的城乡低保家庭学生、特困救助供养学生、孤儿学生。</li>
+                                <li>退役军人事务部门评定的烈士子女或优抚对象子女。</li>
+                                <li>残联认定的学生本人残疾或困难（重度）残疾人家庭子女。</li>
+                                <li>单亲困难家庭子女。</li>
+                                <li>父母丧失劳动能力或劳动能力弱的家庭学生。</li>
+                                <li>直系亲属有大病患者的家庭学生。</li>
+                                <li>特困职工家庭子女。</li>
+                                <li>家庭遭受突发变故（含重大灾害、意外事故、重大风险事件等）的学生。</li>
+                                <li>其他情况导致家庭经济困难的学生（如家庭成员失业情况等）。</li>
+                            </ul>
+                        </div>
+                        <div class="detail-card">
+                            <h3><i class="fas fa-route"></i> 申报程序</h3>
+                            <ol>
+                                <li>提前告知。</li>
+                                <li>学生（或监护人）申请。</li>
+                                <li>学校认定。</li>
+                                <li>结果公示。</li>
+                                <li>建档备案。</li>
+                            </ol>
+                        </div>
+                        <div class="detail-card">
+                            <h3><i class="fas fa-file-alt"></i> 申报资料</h3>
+                            <li>提供与申报条件相关的佐证资料。</li>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-section">
+                        <h3><i class="fas fa-address-book"></i> 联系方式</h3>
+                        <div class="contact-info">
+                            <div class="contact-item">
+                                <div class="contact-icon"><i class="fas fa-building"></i></div>
+                                <div><strong>联系部门：</strong>华阴市教育体育局</div>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-icon"><i class="fas fa-user"></i></div>
+                                <div><strong>联系人：</strong>郭向前</div>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-icon"><i class="fas fa-phone"></i></div>
+                                <div><strong>联系电话：</strong>4615903</div>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            '雨露计划': {
+                title: '<i class="fas fa-graduation-cap"></i> 雨露计划',
+                content: `
+                    <div class="policy-details-grid">
+                        <div>
+                            <span class="policy-tag">三保障类/教育帮扶/雨露计划/特惠性/长期性</span>
+                        </div>
+                    </div>
+                    
+                    <div class="policy-details-grid">
+                        <div class="detail-card">
+                            <h3><i class="fas fa-clipboard-list"></i> 政策标准</h3>
+                            <li>2015年9月起，子女接受中等职业教育（含普通中专、成人中专、职业高中、技工院校）、高等职业教育的农村建档立卡脱贫家庭含三类户（以当前建档立卡国家扶贫信息库为准），每生每年补助财政扶贫资金3000元（已享受2018年千校行动等以前年度雨露计划补助的学年段除外）。</li>
+                        </div>
+                    </div>
+                    
+                    <div class="policy-details-grid">
+                        <div class="detail-card">
+                            <h3><i class="fas fa-check-circle"></i> 申报条件</h3>
+                            <li>脱贫户（含监测对象）</li>
+                        </div>
+                        <div class="detail-card">
+                            <h3><i class="fas fa-route"></i> 申报程序</h3>
+                            <ol>
+                                <li><strong>申请时间：</strong>每年4月10日-4月30日；每年10月8日-10月20日。</li>
+                                <li><strong>申请方式：</strong>符合条件的贫困学生家庭填写"华阴市雨露计划补助审核表"并携带相关资料逐级申请，镇村初审，市农业农村局联合市教体局和市人社局复核，在华阴市人民政府网公示，无异议后通过惠农一卡通补助给贫困家庭。</li>
+                            </ol>
+                        </div>
+                        <div class="detail-card">
+                            <h3><i class="fas fa-file-alt"></i> 申报资料</h3>
+                            <ul>
+                                <li>学生本人身份证原件及复印件1份。</li>
+                                <li>户口簿及复印件（户主页和本人页）1份。</li>
+                                <li>学籍证明（格式见附件）或毕业证原件及复印件1份。</li>
+                                <li>华阴市雨露计划补助审批表（格式见附件）1份。</li>
+                                <li>彩色免冠小1寸照片1张（贴到审批照片处）。</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-section">
+                        <h3><i class="fas fa-address-book"></i> 联系方式</h3>
+                        <div class="contact-info">
+                            <div class="contact-item">
+                                <div class="contact-icon"><i class="fas fa-building"></i></div>
+                                <div><strong>联系部门：</strong>华阴市农业农村局</div>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-icon"><i class="fas fa-user"></i></div>
+                                <div><strong>联系人：</strong>王洁</div>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-icon"><i class="fas fa-phone"></i></div>
+                                <div><strong>联系电话：</strong>4625350</div>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            '大病保险': {
+
+                title: '<i class="fas fa-heartbeat"></i> 大病保险政策',
+                content: `
+                    <div class="policy-details-grid">
+                            <div>
+                                <span class="policy-tag">三保障类/健康帮扶/大病保险/普惠性/长期性</span>
+                            </div>
+                    </div>
+                    
+                    <div class="policy-details-grid">
+                        <div class="detail-card">
+                            <h3><i class="fas fa-clipboard-list"></i> 政策标准</h3>
+                            <ul>
+                                <li>对特困人员、低保对象和返贫致贫人口（统称"特定人群"）住院或门诊慢特病一类重大疾病政策范围内医疗费用经基本医疗保险报销后，累计超过起付线5000元，超过的部分分段按比例进行补偿。</li>
+                                <li>特殊药品费用执行单独的报销比例（20%）。</li>
+                                <li>0.5万（不含）—5万（含），补偿比例65%。</li>
+                                <li>5万（不含）-10万（含），补偿比例75%。</li>
+                                <li>10万（不含）以上，补偿比例85%。</li>
+                                <li>以上补偿取消年度最高支付限额（以上政策实行动态调整，以最新文件为准）。</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="policy-details-grid">
+                        <div class="detail-card">
+                            <h3><i class="fas fa-check-circle"></i> 申报条件</h3>
+                            <li>凡参加2025年度渭南市城乡居民医疗保险的人员，住院或门诊慢特病一类重大疾病医疗费用按相应的基本医疗保险政策规定报销后，达到大病保险起付标准的均可享受大病保险保障待遇。</li>
+                        </div>
+                        <div class="detail-card">
+                            <h3><i class="fas fa-route"></i> 申报程序</h3>
+                            <ol>
+                                <li>参保人员出院→报销基本医疗保险→在开展"一站式"即时结算的医疗机构，即时完成大病保险报付。</li>
+                                <li>在不能实现医疗机构"一站式"即时结算→患者（委托人）携资料前往政务服务中心城乡居民综合窗口提交资料。</li>
+                            </ol>
+                        </div>
+                        <div class="detail-card">
+                            <h3><i class="fas fa-file-alt"></i> 申报资料</h3>
+                            <ul>
+                                <li>患者身份证复印件。</li>
+                                <li>费用清单原件。</li>
+                                <li>住院发票原件。</li>
+                                <li>患者银行卡复印件。</li>
+                                <li>诊断证明原件。</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="contact-section">
+                        <h3><i class="fas fa-address-book"></i> 联系方式</h3>
+                        <div class="contact-info">
+                            <div class="contact-item">
+                                <div class="contact-icon"><i class="fas fa-building"></i></div>
+                                <div><strong>联系部门：</strong>华阴市医保局</div>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-icon"><i class="fas fa-user"></i></div>
+                                <div><strong>联系人：</strong>张若飞</div>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-icon"><i class="fas fa-phone"></i></div>
+                                <div><strong>联系电话：</strong>4628500</div>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            '大病慢病先诊后付': {
+                title: '<i class="fas fa-heartbeat"></i> 大病慢病先诊后付',
+                content: `
+                    <div class="policy-details-grid">
+                        <div>
+                            <span class="policy-tag">三保障类/健康帮扶/大病慢病先诊后付/普惠性/长期性</span>
+                        </div>
+                    </div>
+                    
+                                        
+                    <div class="policy-details-grid">
+                        <div class="detail-card">
+                            <h3><i class="fas fa-clipboard-list"></i> 政策标准</h3>
+                            <ul>
+                                <li><strong>大病专项救治政策：</strong>按照"定定点医院、定诊疗方案、加强质量安全管理"的原则，对罹患儿童白血病、儿童先心病、食管癌、胃癌、结肠癌、直肠癌、终末期肾病、肺癌、肝癌、乳腺癌、宫颈癌、急性心肌梗死、白内障、尘肺、神经母细胞瘤、儿童淋巴瘤、骨肉瘤、血友病、地中海贫血、唇腭裂、尿道下裂、耐多药结核病、脑卒中、慢性阻塞性肺气肿、艾滋病机会感染、膀胱癌、卵巢癌、肾癌、重型精神障碍、风湿性心脑病的30种大病患者进行专项救治。救治要求：严格按照分级诊疗制度，夯实县级定点医院的救治主体责任，对县级医院不具备救治条件的，由对口帮扶的三级医院或医联体医院派驻专家指导救治，仍不具备条件的，到市省级定点医院救治，康复后回基层。</li>
+                                <li><strong>慢病签约服务政策：</strong>持续做好脱贫人口和"三类户"家庭医生签约服务，逐步扩大签约服务重点人群范围，提供公共卫生、慢病管理、健康咨询和中医干预等综合服务，重点做好高血压、糖尿病、肺结核、严重精神障碍等四种主要慢病患者的规范管理和健康服务。</li>
+                                <li><strong>先诊疗后付费政策：</strong>脱贫人口和"三类户"（脱贫不稳定户、边缘易致贫户以及突发严重困难户）在县域内定点医疗机构住院实行先诊疗后付费（其中涉及第三方责任的患者不享受先诊疗后付费政策），免交住院押金，享受"一站式"及时结算服务。</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+
+                    <div class="contact-section">
+                        <h3><i class="fas fa-address-book"></i> 联系方式</h3>
+                        <div class="contact-info">
+                            <div class="contact-item">
+                                <div class="contact-icon"><i class="fas fa-building"></i></div>
+                                <div>华阴市卫健局</div>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-icon"><i class="fas fa-user"></i></div>
+                                <div>张玉青 4612385</div>
+                            </div>
+                        </div>
+                    </div>
+
+                   
+                `
+            },
+           
+            '农村低保': {
+                title: '<i class="fas fa-shield-alt"></i> 农村低保',
+                content: `
+                    <div class="policy-details-grid">
+                        <div>
+                            <span class="policy-tag">兜底保障类/综合保障/农村低保/特惠性/长期性</span>
+                        </div>
+                    </div>
+                    
+                    <div class="policy-details-grid">
+                        <div class="detail-card">
+                            <h3><i class="fas fa-clipboard-list"></i> 政策标准</h3>
+                            <li>农村低保标准为5376元/人・年，实行分档救助，A档448元/人・月，B档336元/人・月，C档224元/人・月。</li> 
+                        </div>
+                    </div>
+                    
+                    <div class="policy-details-grid">
+                        <div class="detail-card">
+                            <h3><i class="fas fa-check-circle"></i> 申报条件</h3>
+                            <li>持有市域内常住户口的居民，共同生活的家庭成员人均收入低于当地低保标准，且家庭财产状况符合当地人民政府规定条件。</li>
+                        </div>
+                        <div class="detail-card">
+                            <h3><i class="fas fa-route"></i> 申报程序</h3>
+                            <ol>
+                                <li>户主（代理人）向所在镇（街道）提出书面申请，填报资料。</li>
+                                <li>镇（街道）审核资料，组织信息核对，入户调查。</li>
+                                <li>民主评议（无异议取消此环节），公示。</li>
+                                <li>确定保障档次，审核确认后，报市民政部门备案，发放救助金。</li>
+                            </ol>
+                        </div>
+                        <div class="detail-card">
+                            <h3><i class="fas fa-file-alt"></i> 申报资料</h3>
+                            <li>家庭经济状况核对承诺授权书，申请书，身份证、户口本复印件，家庭致困相关证明资料等。</li>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-section">
+                        <h3><i class="fas fa-address-book"></i> 联系方式</h3>
+                        <div class="contact-info">
+                            <div class="contact-item">
+                                <div class="contact-icon"><i class="fas fa-building"></i></div>
+                                <div><strong>联系部门：</strong>华阴市民政局</div>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-icon"><i class="fas fa-user"></i></div>
+                                <div><strong>联系人：</strong>张艳</div>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-icon"><i class="fas fa-phone"></i></div>
+                                <div><strong>联系电话：</strong>4610177</div>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            '农村特困供养': {
+                title: '<i class="fas fa-shield-alt"></i> 农村特困供养',
+                content: `
+                    <div class="policy-details-grid">
+                        <div>
+                            <span class="policy-tag">兜底保障类/综合保障/农村特困供养/特惠性/长期性</span>
+                        </div>
+                    </div>
+                    
+                    <div class="policy-details-grid">
+                        <div class="detail-card">
+                            <h3><i class="fas fa-clipboard-list"></i> 政策标准</h3>
+                            <li>农村特困供养标准为7032元/人・年。</li>
+                        </div>
+                    </div>
+                    <div class="policy-details-grid">
+                        <div class="detail-card">
+                            <h3><i class="fas fa-check-circle"></i> 申报条件</h3>
+                            <li>无劳动能力、无生活来源、无法定赡养、抚养、扶养义务人或者法定义务人无履行义务能力（60周岁以上老年人，未满16周岁的未成年人，残疾等级为一、二、三级的智力、精神残疾人，残疾等级为一、二级肢体残疾人，残疾等级为一级视力残疾人）。</li>
+                        </div>
+                        <div class="detail-card">
+                            <h3><i class="fas fa-route"></i> 申报程序</h3>
+                            <ol>
+                                <li>户主（代理人）向所在镇（街道）提出书面申请，填报资料。</li>
+                                <li>镇（街道）审核资料，组织信息核对，入户调查。</li>
+                                <li>民主评议（无异议取消此环节），公示。</li>
+                                <li>确定保障档次，审核确认后，报市民政部门备案，发放救助金。</li>
+                            </ol>
+                        </div>
+                        <div class="detail-card">
+                            <h3><i class="fas fa-file-alt"></i> 申报资料</h3>
+                            <li>家庭经济状况核对承诺授权书，申请书，身份证、户口本复印件，家庭致困相关证明资料等。</li>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-section">
+                        <h3><i class="fas fa-address-book"></i> 联系方式</h3>
+                        <div class="contact-info">
+                            <div class="contact-item">
+                                <div class="contact-icon"><i class="fas fa-building"></i></div>
+                                <div><strong>联系部门：</strong>华阴市民政局</div>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-icon"><i class="fas fa-user"></i></div>
+                                <div><strong>联系人：</strong>张艳</div>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-icon"><i class="fas fa-phone"></i></div>
+                                <div><strong>联系电话：</strong>4610177</div>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            '临时救助': {
+                title: '<i class="fas fa-shield-alt"></i> 临时救助',
+                content: `
+                    <div class="policy-details-grid">
+                        <div>
+                            <span class="policy-tag">兜底保障类/综合保障/临时救助/特惠性/长期性</span>
+                        </div>
+                    </div>
+                    
+                    <div class="policy-details-grid">
+                        <div class="detail-card">
+                            <h3><i class="fas fa-clipboard-list"></i> 政策标准</h3>
+                            <li>按不超过12个月的城市最低生活保障标准确定。以家庭为救助对象的，按共同生活家庭成员乘以临时救助标准拨付。</li>
+                        </div>
+                    </div>
+                    
+                    <div class="policy-details-grid">
+                        <div class="detail-card">
+                            <h3><i class="fas fa-check-circle"></i> 申报条件</h3>
+                            <li>对遭遇突发事件、意外伤害、重大疾病或其他原因导致基本生活陷入困境，靠自身和家庭无力解决，其他社会救助制度暂时无法覆盖或救助之后基本生活仍有困难的家庭或个人。</li>
+                        </div>
+                        <div class="detail-card">
+                            <h3><i class="fas fa-route"></i> 申报程序</h3>
+                            <ol>
+                                <li>户主（代理人）向所在镇（街道）提出书面申请，填报资料。</li>
+                                <li>镇（街道）审核资料，组织信息核对，入户调查。</li>
+                                <li>民主评议（无异议取消此环节），公示。</li>
+                                <li>3000元以下镇（街道）直接审核、发放救助金；3000元以上报市民政部门审核、发放救助金（年度救助金额不超过2万元）。</li>
+                                <li>特殊事件、特殊对象的救助，采取一事一议的方式，由市级困难群众基本生活保障联席会议确定具体救助方式和救助标准（年度救助金额不超过5万元）。</li>
+                            </ol>
+                        </div>
+                        <div class="detail-card">
+                            <h3><i class="fas fa-file-alt"></i> 申报资料</h3>
+                            <li>家庭经济状况核对承诺授权书，申请书，身份证、户口本复印件，家庭致困相关证明资料等。</li>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-section">
+                        <h3><i class="fas fa-address-book"></i> 联系方式</h3>
+                        <div class="contact-info">
+                            <div class="contact-item">
+                                <div class="contact-icon"><i class="fas fa-building"></i></div>
+                                <div><strong>联系部门：</strong>华阴市民政局</div>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-icon"><i class="fas fa-user"></i></div>
+                                <div><strong>联系人：</strong>张艳</div>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-icon"><i class="fas fa-phone"></i></div>
+                                <div><strong>联系电话：</strong>4610177</div>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            
+            '残疾人两项补贴': {
+                title: '<i class="fas fa-wheelchair"></i> 残疾人两项补贴',
+                content: `
+                    <div class="policy-details-grid">
+                        <div>
+                            <span class="policy-tag">其他类/社会帮扶/残疾人两项补贴/普惠性/长期性</span>
+                        </div>
+                    </div>
+                    
+                    <div class="policy-details-grid">
+                        <div class="detail-card">
+                            <h3><i class="fas fa-clipboard-list"></i> 政策标准</h3>
+                            <li>困难残疾人生活补贴100元/人・月；重度残疾人护理补贴一级120元/人・月，二级80元/人・月。</li>
+                        </div>
+                    </div>
+                    
+                    <div class="policy-details-grid">
+                        <div class="detail-card">
+                            <h3><i class="fas fa-check-circle"></i> 申报条件</h3>
+                            <ul>
+                                <li><strong>困难残疾人生活补贴：</strong>具有华阴市户籍并持有《中华人民共和国残疾人证》第二代以上有效证件的残疾人，满足以下情况之一：最低生活保障家庭中的残疾人；非最低生活保障家庭中残疾等级为一、二、三级认定后的低收入残疾人（低收入标准：月均收入在城乡最低生活保障标准1.5倍及以下，目前城镇户籍月均收入不高于1005元/人，农村户籍月均收入不高于672元/人）；其他困难残疾人（包括一户多残、残疾人家里有高中以上学生、残疾人有重大疾病、孤寡或留守残疾老人及18周岁以下留守残疾儿童、失独家庭人员、民政和残联两部门认定生活困难的其他残疾人）。</li>
+                                <li><strong>重度残疾人护理补贴：</strong>具有华阴市户籍并持有《中华人民共和国残疾人证》第二代以上有效证件的残疾人，残疾等级为一级、二级且需要长期照护的重度残疾人。</li>
+                            </ul>
+                        </div>
+                        <div class="detail-card">
+                            <h3><i class="fas fa-route"></i> 申报程序</h3>
+                            <li>由本人（监护人）通过村（居）残疾人专委协助申报，也可由本人（监护人）直接向户籍所在地镇（街道）进行申报。</li>
+                        </div>
+                        <div class="detail-card">
+                            <h3><i class="fas fa-file-alt"></i> 申报资料</h3>
+                            <li>申请表、相关印证资料。</li>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-section">
+                        <h3><i class="fas fa-address-book"></i> 联系方式</h3>
+                        <div class="contact-info">
+                            <div class="contact-item">
+                                <div class="contact-icon"><i class="fas fa-building"></i></div>
+                                <div><strong>联系部门：</strong>华阴市民政局</div>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-icon"><i class="fas fa-user"></i></div>
+                                <div><strong>联系人：</strong>晁妮</div>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-icon"><i class="fas fa-phone"></i></div>
+                                <div><strong>联系电话：</strong>4613112</div>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            '社会捐助': {
+                title: '<i class="fas fa-hands-helping"></i> 社会捐助',
+                content: `
+                    <div class="policy-details-grid">
+                        <div>
+                            <span class="policy-tag">其他类/社会帮扶/社会捐助/普惠性/长期性</span>
+                        </div>
+                    </div>
+                    
+                    <div class="policy-details-grid">
+                        <div class="detail-card">
+                            <h3><i class="fas fa-clipboard-list"></i> 政策标准</h3>
+                            <li>引导和鼓励社会力量积极参与乡村振兴，承担社会责任。在"中华慈善日"及"陕西慈善周"开展宣传活动，引导社会组织助力乡村振兴，帮扶困难家庭。</li>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-section">
+                        <h3><i class="fas fa-address-book"></i> 联系方式</h3>
+                        <div class="contact-info">
+                            <div class="contact-item">
+                                <div class="contact-icon"><i class="fas fa-building"></i></div>
+                                <div><strong>联系部门：</strong>华阴市民政局</div>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-icon"><i class="fas fa-user"></i></div>
+                                <div><strong>联系人：</strong>张艳</div>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-icon"><i class="fas fa-phone"></i></div>
+                                <div><strong>联系电话：</strong>4610177</div>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            '后续帮扶': {
+                title: '<i class="fas fa-home"></i> 后续帮扶',
+                content: `
+                    <div class="policy-details-grid">
+                        <div>
+                            <span class="policy-tag">其他类/搬迁/后续帮扶/普惠性/长期性</span>
+                        </div>
+                    </div>
+                    
+                    <div class="policy-details-grid">
+                        <div class="detail-card">
+                            <h3><i class="fas fa-clipboard-list"></i> 政策标准</h3>
+                            <li>完善安置点基础和公共服务设施配套工程。加快推进安置点的水、电、路、讯、垃圾、污水处理、车棚、充电桩、消防等基础设施和教育、医疗、文化体育、商务网点、便民超市、集贸市场等公共设施建设，保障搬迁群众基础生活需求。</li>
+                        </div>
+                    </div>
+                    
+                    <div class="policy-details-grid">
+                        <div class="detail-card">
+                            <h3><i class="fas fa-route"></i> 申报程序</h3>
+                            <li>由迁入地向发改局打报告（项目申请文件、镇党委会议记录）</li>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-section">
+                        <h3><i class="fas fa-address-book"></i> 联系方式</h3>
+                        <div class="contact-info">
+                            <div class="contact-item">
+                                <div class="contact-icon"><i class="fas fa-building"></i></div>
+                                <div><strong>联系部门：</strong>华阴市发改局</div>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-icon"><i class="fas fa-user"></i></div>
+                                <div><strong>联系人：</strong>李鹏</div>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-icon"><i class="fas fa-phone"></i></div>
+                                <div><strong>联系电话：</strong>4612473</div>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            '避灾搬迁、生态搬迁': {
+                title: '<i class="fas fa-mountain"></i> 避灾搬迁、生态搬迁',
+                content: `
+                    <div class="policy-details-grid">
+                        <div>
+                            <span class="policy-tag">其他类/搬迁/避灾搬迁、生态搬迁/普惠性/长期性</span>
+                        </div>
+                    </div> 
+                    <div class="policy-details-grid">
+                        <div class="detail-card">
+                            <h3><i class="fas fa-clipboard-list"></i> 政策标准</h3>
+                            <li>按照当年中省市政策落实有关居住条件较差或无法居住农户的搬迁有关工作。</li>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-section">
+                        <h3><i class="fas fa-address-book"></i> 联系方式</h3>
+                        <div class="contact-info">
+                            <div class="contact-item">
+                                <div class="contact-icon"><i class="fas fa-building"></i></div>
+                                <div><strong>联系部门：</strong>华阴市自然资源局</div>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-icon"><i class="fas fa-user"></i></div>
+                                <div><strong>联系人：</strong>王鼎震</div>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-icon"><i class="fas fa-phone"></i></div>
+                                <div><strong>联系电话：</strong>4612356</div>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            '户厕改造': {
+                title: '<i class="fas fa-toilet"></i> 户厕改造',
+                content: `
+                    <div class="policy-details-grid">
+                        <div>
+                            <span class="policy-tag">其他类/生产生活条件改善/户厕改造/普惠性/长期性</span>
+                        </div>
+                    </div>
+                    
+                    <div class="policy-details-grid">
+                        <div class="detail-card">
+                            <h3><i class="fas fa-clipboard-list"></i> 政策标准</h3>
+                            <li>根据华阴市农村改厕奖补政策，一格式卫生厕所奖补300元/户，成品三格式厕所奖补1000元/户，水泥小三格厕所奖补1600元/户，接入政府实施粪污水管网的户厕不予以奖补。</li>
+                        </div>
+                    </div>
+                    
+                    <div class="policy-details-grid">
+                        <div class="detail-card">
+                            <h3><i class="fas fa-check-circle"></i> 申报条件</h3>
+                            <li>全市农村户内旱厕改造均可申报。</li>
+                        </div>
+                        <div class="detail-card">
+                            <h3><i class="fas fa-route"></i> 申报程序</h3>
+                            <li>申报给村委会，由村委会核实后统一上报。</li>
+                        </div>
+                        <div class="detail-card">
+                            <h3><i class="fas fa-file-alt"></i> 申报资料</h3>
+                            <li>申报需提供户主姓名，身份证号，联系电话及三张厕所在户照片，分别为改建前的旱厕化粪池照片、新改建的化粪池照片、新建厕屋内照片。</li>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-section">
+                        <h3><i class="fas fa-address-book"></i> 联系方式</h3>
+                        <div class="contact-info">
+                            <div class="contact-item">
+                                <div class="contact-icon"><i class="fas fa-building"></i></div>
+                                <div><strong>联系部门：</strong>华阴市农业农村局</div>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-icon"><i class="fas fa-user"></i></div>
+                                <div><strong>联系人：</strong>乔梦娜</div>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-icon"><i class="fas fa-phone"></i></div>
+                                <div><strong>联系电话：</strong>4689929</div>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            '道路硬化': {
+                title: '<i class="fas fa-road"></i> 道路硬化',
+                content: `
+                    <div class="policy-details-grid">
+                        <div>
+                            <span class="policy-tag">其他类/基础设施建设/道路硬化/普惠性/长期性</span>
+                        </div>
+                    </div>
+                    
+                    <div class="policy-details-grid">
+                        <div class="detail-card">
+                            <h3><i class="fas fa-clipboard-list"></i> 政策标准</h3>
+                            <li>路基5米，路面4.5米。</li>
+                        </div>
+                    </div>
+                    
+                    <div class="policy-details-grid">
+                        <div class="detail-card">
+                            <h3><i class="fas fa-check-circle"></i> 申报条件</h3>
+                            <li>村委会承诺处理好底基层；群众期望值高，基础良好；待建范围内产权明晰，无矛盾纠纷。</li>
+                        </div>
+                        <div class="detail-card">
+                            <h3><i class="fas fa-route"></i> 申报程序</h3>
+                            <li>村申报，镇办审核，交通运输局复核。</li>
+                        </div>
+                        <div class="detail-card">
+                            <h3><i class="fas fa-file-alt"></i> 申报资料</h3>
+                            <li>申报申请文件。</li>
+                        </div>
+                    </div>
+                    <div class="contact-section">
+                        <h3><i class="fas fa-address-book"></i> 联系方式</h3>
+                        <div class="contact-info">
+                            <div class="contact-item">
+                                <div class="contact-icon"><i class="fas fa-building"></i></div>
+                                <div><strong>联系部门：</strong>华阴市交运局</div>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-icon"><i class="fas fa-phone"></i></div>
+                                <div><strong>联系电话：</strong>4611188</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="contact-section">
+                        <h3><i class="fas fa-address-book"></i> 联系方式</h3>
+                        <div class="contact-info">
+                            <div class="contact-item">
+                                <div class="contact-icon"><i class="fas fa-building"></i></div>
+                                <div><strong>联系部门：</strong>华阴市交运局</div>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-icon"><i class="fas fa-user"></i></div>
+                                <div><strong>联系人：</strong>党力强</div>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-icon"><i class="fas fa-phone"></i></div>
+                                <div><strong>联系电话：</strong>4610136</div>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            '脱贫村电力基础设施提升': {
+                title: '<i class="fas fa-bolt"></i> 脱贫村电力基础设施提升',
+                content: `
+                    <div class="policy-details-grid">
+                        <div>
+                            <span class="policy-tag">其他类/基础设施建设/通电通讯、公共服务设施建设等/普惠性/长期性</span>
+                        </div>
+                    </div>
+                    
+                    <div class="policy-details-grid">
+                        <div class="detail-card">
+                            <h3><i class="fas fa-clipboard-list"></i> 政策标准</h3>
+                            <li>对全市脱贫村电力基础设施、每户每户通电、每户每户通动力电等情况进行全面核查、整改、提升工作。排查辖区内脱贫村动力电通电使用是否正常、机井是否全部通电并使用正常，重点清查用户端电压不达标、用电不正常、频繁停电突出、农村居民生活用电执行高电价等敏感问题，发现问题现场安排，立即处理。</li>
+                        </div>
+                    </div>
+                    
+                    <div class="policy-details-grid">
+                        <div class="detail-card">
+                            <h3><i class="fas fa-route"></i> 申报程序</h3>
+                            <li>可直接前往辖区内相关供电所办理。</li>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-section">
+                        <h3><i class="fas fa-address-book"></i> 联系方式</h3>
+                        <div class="contact-info">
+                            <div class="contact-item">
+                                <div class="contact-icon"><i class="fas fa-building"></i></div>
+                                <div><strong>联系部门：</strong>华阴市电力局</div>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-icon"><i class="fas fa-phone"></i></div>
+                                <div><strong>联系电话：</strong>4611188</div>
+                            </div>
+                        </div>
+                    </div>
+                `
+            }
+        };
+
+        // 打开模态框
+        function openModal(policyName) {
+            const modal = document.getElementById('policyModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalBody = document.getElementById('modalBody');
+            
+            // 设置模态框内容
+            if (policyData[policyName]) {
+                modalTitle.innerHTML = policyData[policyName].title;
+                modalBody.innerHTML = policyData[policyName].content;
+            } else {
+                modalTitle.textContent = policyName;
+                modalBody.innerHTML = '<p>暂无详细信息</p>';
+            }
+            
+            // 显示模态框
+            modal.classList.add('show');
+            document.body.style.overflow = 'hidden'; // 防止背景滚动
+            
+            // 添加键盘事件监听器
+            document.addEventListener('keydown', handleKeyDown);
+        }
+        
+        // 关闭模态框
+        function closeModal() {
+            const modal = document.getElementById('policyModal');
+            modal.classList.remove('show');
+            document.body.style.overflow = ''; // 恢复背景滚动
+            
+            // 移除键盘事件监听器
+            document.removeEventListener('keydown', handleKeyDown);
+        }
+        
+        // 键盘事件处理
+        function handleKeyDown(event) {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
+        }
+        
+        // 点击模态框外部关闭
+        window.onclick = function(event) {
+            const modal = document.getElementById('policyModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+        
+        // 回到顶部功能
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+        
+        // 监听滚动事件，控制回到顶部按钮显示
+        window.onscroll = function() {
+            const backToTopBtn = document.querySelector('.back-to-top');
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                backToTopBtn.classList.add('visible');
+            } else {
+                backToTopBtn.classList.remove('visible');
+            }
+        };
+        
+        // Coze聊天机器人SDK
+        let webChatClient;
+        document.addEventListener('DOMContentLoaded', function() {
+            webChatClient = new CozeWebSDK.WebChatClient({
+                config: {
+                    bot_id: '7533533944533794858',
+                },
+                componentProps: {
+                    title: '政策咨询助手',
+                },
+                auth: {
+                    type: 'token',
+                    token: 'pat_jqAjo5Maobrw9aaDL3atNyZr5aQaKkSpOHwjdAhJEs7tJjUtLM4bDQ9w3wVePU9p',
+                    onRefreshToken: function () {
+                        return 'pat_jqAjo5Maobrw9aaDL3atNyZr5aQaKkSpOHwjdAhJEs7tJjUtLM4bDQ9w3wVePU9p'
+                    }
+                }
+            });
+            
+            // 监听聊天窗口状态变化
+            observeChatWindow();
+        });
+        
+        // 监听聊天窗口状态变化并调整页面布局
+        function observeChatWindow() {
+            // 定期检查聊天窗口状态
+            const interval = setInterval(() => {
+                // 检查是否有聊天窗口元素存在
+                const chatElements = document.querySelectorAll('[id^="coze-"], [class*="coze-"]');
+                
+                if (chatElements.length > 0) {
+                    // 检查聊天窗口是否可见
+                    let isChatVisible = false;
+                    chatElements.forEach(el => {
+                        const computedStyle = window.getComputedStyle(el);
+                        if (computedStyle.display !== 'none' && computedStyle.visibility !== 'hidden') {
+                            isChatVisible = true;
+                        }
+                    });
+                    
+                    // 调整页面布局
+                    adjustPageContent(isChatVisible);
+                }
+            }, 500); // 每500ms检查一次
+        }
+        
+        // 调整页面内容边距以适应聊天窗口
+        function adjustPageContent(isChatOpen) {
+            console.log('调整页面内容，聊天窗口状态:', isChatOpen);
+            const container = document.querySelector('.container');
+            const header = document.querySelector('.header');
+            const policyGrid = document.querySelector('.policy-grid');
+            
+            if (isChatOpen) {
+                console.log('聊天窗口已打开，设置右边距为500px并减小容器宽度');
+                // 聊天窗口打开时，通过调整容器右侧边距为聊天窗口留出更多空间，而不是移动内容
+                if (container) {
+                    container.style.transition = 'all 0.3s ease';
+                    // 为聊天窗口留出更多空间，避免内容被移动到可视区域外
+                    container.style.marginRight = '500px';
+                    // 减小容器的最大宽度，使其适应剩余空间
+                    container.style.maxWidth = '1200px';
+                    console.log('已设置container margin-right为500px，max-width为1200px');
+                }
+                if (header) {
+                    header.style.transition = 'padding-right 0.3s ease';
+                    // 头部也调整右侧内边距
+                    header.style.paddingRight = '500px';
+                    console.log('已设置header padding-right为500px');
+                }
+                
+                // 当聊天机器人打开时设置为固定3列布局
+                if (policyGrid) {
+                    policyGrid.style.gridTemplateColumns = 'repeat(3, 1fr)';
+                    console.log('已设置policyGrid为固定3列布局');
+                }
+            } else {
+                console.log('聊天窗口已关闭，恢复原始边距和宽度');
+                // 聊天窗口关闭时，恢复原始边距和最大宽度
+                if (container) {
+                    container.style.marginRight = '';
+                    container.style.maxWidth = '';
+                    console.log('已重置container margin-right和max-width');
+                }
+                if (header) {
+                    header.style.paddingRight = '';
+                    console.log('已重置header padding-right');
+                }
+                
+                // 当聊天机器人关闭时恢复响应式布局
+                if (policyGrid) {
+                    policyGrid.style.gridTemplateColumns = '';
+                    console.log('已恢复policyGrid的响应式布局');
+                }
+            }
+        }
+        
+        // 添加显示当前日期时间的函数
+        function updateDateTime() {
+            const now = new Date();
+            const datetimeStr = now.toLocaleString('zh-CN', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                weekday: 'long'
+            });
+            document.getElementById('current-datetime').textContent = datetimeStr;
+        }
+        
+        // 初始化并每秒更新日期时间
+        document.addEventListener('DOMContentLoaded', function() {
+            updateDateTime();
+            setInterval(updateDateTime, 1000);
+        });
+    </script>
+    
+    <!-- Coze聊天机器人SDK -->
+    <script src="https://lf-cdn.coze.cn/obj/unpkg/flow-platform/chat-app-sdk/1.2.0-beta.10/libs/cn/index.js"></script>
+</body>
+</html>
