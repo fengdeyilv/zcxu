@@ -615,11 +615,11 @@
     </style>
 </head>
 <body>
-    <div id="current-datetime" style="position: absolute; top: 10px; left: 10px; font-size: 0.9rem; color: var(--text-secondary); z-index: 100;"></div>
+
     <header class="header">
         <div class="header-content">
             <h1>华阴市防止返贫监测对象主要帮扶政策"工具箱"</h1>
-            <p>让政策走进千家万户，让帮扶温暖人心</p>
+            <p>政策入万家，帮扶暖人心</p>
         </div>
     </header>
     <div class="container">
@@ -2696,23 +2696,9 @@
             }
         }
         
-        // 回到顶部功能
-        function scrollToTop() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        }
         
-        // 监听滚动事件，控制回到顶部按钮显示
-        window.onscroll = function() {
-            const backToTopBtn = document.querySelector('.back-to-top');
-            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-                backToTopBtn.classList.add('visible');
-            } else {
-                backToTopBtn.classList.remove('visible');
-            }
-        };
+        
+       
         
         // Coze聊天机器人SDK
         let webChatClient;
@@ -2723,6 +2709,7 @@
                 },
                 componentProps: {
                     title: '政策咨询助手',
+                    icon: 'card.png',
                 },
                 auth: {
                     type: 'token',
@@ -2811,26 +2798,8 @@
             }
         }
         
-        // 添加显示当前日期时间的函数
-        function updateDateTime() {
-            const now = new Date();
-            const datetimeStr = now.toLocaleString('zh-CN', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit',
-                second: '2-digit',
-                weekday: 'long'
-            });
-            document.getElementById('current-datetime').textContent = datetimeStr;
-        }
-        
-        // 初始化并每秒更新日期时间
-        document.addEventListener('DOMContentLoaded', function() {
-            updateDateTime();
-            setInterval(updateDateTime, 1000);
-        });
+       
+     
     </script>
     
     <!-- Coze聊天机器人SDK -->
